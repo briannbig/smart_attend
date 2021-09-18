@@ -24,9 +24,10 @@ class MainActivity : AppCompatActivity() {
             loadApp()
         }
         else{
-            binding.button2.setOnClickListener {
-                initiateLogin()
-            }
+            loadApp()
+//            binding.button2.setOnClickListener {
+//                initiateLogin()
+//            }
         }
     }
 
