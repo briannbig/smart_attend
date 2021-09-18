@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartAttend">
         <activity
+            android:name=".lecturer.LecturerActivity"
+            android:exported="true" />
+        <activity
             android:name=".student.ui.StudentActivity"
             android:exported="true" />
         <activity
