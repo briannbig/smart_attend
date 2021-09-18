@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_attendace_logo_72.xml" value="0.23020833333333332" />
+        <entry key="app/src/main/res/drawable/ic_app_logo.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/activity_lecturer.xml" value="0.20833333333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_student.xml" value="0.21195652173913043" />
