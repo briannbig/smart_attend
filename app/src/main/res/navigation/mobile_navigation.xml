@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="app.smartattend.admin.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_coursesFragment"
+            app:destination="@id/coursesFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_classesFragment"
+            app:destination="@id/classesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="app.smartattend.admin.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/coursesFragment"
+        android:name="app.smartattend.admin.ui.CoursesFragment"
+        android:label="@string/manage_courses"
+        tools:layout="@layout/fragment_courses">
+        <action
+            android:id="@+id/action_coursesFragment_to_editCourseFragment"
+            app:destination="@id/editCourseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editCourseFragment"
+        android:name="app.smartattend.admin.ui.EditCourseFragment"
+        android:label="@string/course"
+        tools:layout="@layout/fragment_edit_course" />
+    <fragment
+        android:id="@+id/classesFragment"
+        android:name="app.smartattend.admin.ui.ClassesFragment"
+        android:label="@string/manage_classes"
+        tools:layout="@layout/fragment_classes" >
+        <action
+            android:id="@+id/action_classesFragment_to_editClassFragment"
+            app:destination="@id/editClassFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editClassFragment"
+        android:name="app.smartattend.admin.ui.EditClassFragment"
+        android:label="@string/classs"
+        tools:layout="@layout/fragment_edit_class" />
+</navigation>

@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "930201107341",
+    "firebase_url": "https://attendance-v2-658c4-default-rtdb.firebaseio.com",
+    "project_id": "attendance-v2-658c4",
+    "storage_bucket": "attendance-v2-658c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930201107341:android:ff374d95c625e8f42f5bc4",
+        "android_client_info": {
+          "package_name": "app.smartattend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930201107341-7juc6qp3kshabjdamps8co9kmmgjfql4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2bLU4c6mVCDJK09QihmN5a_BdzQ1WYOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930201107341-7juc6qp3kshabjdamps8co9kmmgjfql4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930201107341:android:645747eadbca21e12f5bc4",
+        "android_client_info": {
+          "package_name": "brian.big.attendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930201107341-7juc6qp3kshabjdamps8co9kmmgjfql4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2bLU4c6mVCDJK09QihmN5a_BdzQ1WYOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930201107341-7juc6qp3kshabjdamps8co9kmmgjfql4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

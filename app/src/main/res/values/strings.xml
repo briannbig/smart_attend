@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Smart Attend</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="classes">classes</string>
+    <string name="courses">courses</string>
+    <string name="manage_classes">Manage Classes</string>
+    <string name="manage_courses">manage courses</string>
+    <string name="more">more</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sample_course_code">BIT 212</string>
+    <string name="sample_course_title">Communication Skills Fundamentals</string>
+    <string name="sample_lec_name">Mr. Mike M Karis</string>
+    <string name="course">course</string>
+    <string name="save">save</string>
+    <string name="code">code</string>
+    <string name="classs">class</string>
+    <string name="program">program</string>
+    <string name="class_id">class ID</string>
+    <string name="prompt_class_id">eg DICT21J</string>
+</resources>
