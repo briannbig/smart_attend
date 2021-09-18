@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="app.smartattend.student.ui.notifications.MoreFragment"
-        android:label="@string/title_notifications"
+        android:name="app.smartattend.admin.ui.notifications.NotificationsFragment"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/navigation_student_home"

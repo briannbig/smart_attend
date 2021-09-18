@@ -25,7 +25,7 @@ class StudentActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_student)
 
         val appBarConfiguration = AppBarConfiguration(
-            setOf()
+            setOf(R.id.navigation_student_home, R.id.navigation_notifications)
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
