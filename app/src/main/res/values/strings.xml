@@ -20,4 +20,6 @@
     <string name="program">program</string>
     <string name="class_id">class ID</string>
     <string name="prompt_class_id">eg DICT21J</string>
+    <string name="title_activity_student">StudentActivity</string>
+    <string name="my_courses">my courses</string>
 </resources>
