@@ -14,5 +14,14 @@
         android:id="@+id/navigation_student_home"
         android:name="app.smartattend.student.ui.StudentHomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_student_home" />
+        tools:layout="@layout/fragment_student_home" >
+        <action
+            android:id="@+id/action_navigation_student_home_to_lessonFragment"
+            app:destination="@id/lessonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lessonFragment"
+        android:name="app.smartattend.student.ui.LessonFragment"
+        android:label="@string/lesson_in_progress"
+        tools:layout="@layout/fragment_lesson" />
 </navigation>
