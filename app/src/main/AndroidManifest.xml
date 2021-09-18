@@ -21,9 +21,7 @@
         <activity
             android:name=".lecturer.LecturerActivity"
             android:exported="true" />
-        <activity
-            android:name=".student.ui.StudentActivity"
-            android:exported="true" />
+
         <activity
             android:name=".student.StudentActivity"
             android:exported="true"
