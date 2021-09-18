@@ -22,4 +22,7 @@
     <string name="prompt_class_id">eg DICT21J</string>
     <string name="title_activity_student">StudentActivity</string>
     <string name="my_courses">my courses</string>
+    <string name="login">login</string>
+    <string name="prompt_username">registration / employee number</string>
+    <string name="prompt_password">password</string>
 </resources>
