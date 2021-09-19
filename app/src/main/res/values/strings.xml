@@ -29,4 +29,5 @@
     <string name="new_attendance">new attendance</string>
     <string name="in_progress">in progress</string>
     <string name="lesson_in_progress">Lesson in Progress</string>
+    <string name="me">me</string>
 </resources>
