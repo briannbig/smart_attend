@@ -6,9 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import app.smartattend.R
+import app.smartattend.commons.ProgressManager
 import app.smartattend.databinding.FragmentStudentHomeBinding
+import app.smartattend.model.Lesson
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import com.google.zxing.integration.android.IntentIntegrator
 
 
@@ -16,7 +21,7 @@ class StudentHomeFragment : Fragment() {
 
 
     private lateinit var binding: FragmentStudentHomeBinding
-    internal var qrScanIntegrator: IntentIntegrator? =null
+    private var qrScanIntegrator: IntentIntegrator? =null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +34,11 @@ class StudentHomeFragment : Fragment() {
             setBeepEnabled(true)
             setCameraId(0)
         }
-        binding.buttonAttend.setOnClickListener {
-            initiateScan()
+        binding.card3.setOnClickListener {
+            if (ProgressManager.inProgress(requireContext())) {
+                findNavController().navigate(R.id.action_navigation_student_home_to_lessonFragment)
+            }
+            else initiateScan()
         }
         return binding.root
     }
@@ -41,17 +49,31 @@ class StudentHomeFragment : Fragment() {
             if (result.contents == null){
                 snack("Results not found")
             }
+            else{
+                attend(result.contents)
+            }
         }
     }
     private fun initiateScan() {
         qrScanIntegrator?.initiateScan()
     }
 
-    private fun attend() {
-
+    private fun attend(qrCodeContent: String) {
+        try {
+            if (Gson().fromJson(qrCodeContent, Lesson::class.java) != null){
+                val lesson: Lesson = Gson().fromJson(qrCodeContent, Lesson::class.java)
+                ProgressManager.startProgress(requireContext())
+            }
+            else{
+                snack("Invalid QR Code")
+            }
+        }
+        catch (jse: JsonSyntaxException){
+            snack("Invalid QR Code")
+        }
     }
 
     fun snack(message: String, length: Int = Snackbar.LENGTH_SHORT){
-//        Snackbar.make()
+        Snackbar.make(requireView().rootView, message, length).show()
     }
 }

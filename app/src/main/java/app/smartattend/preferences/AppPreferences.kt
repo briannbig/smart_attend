@@ -3,6 +3,7 @@ package app.smartattend.preferences
 import android.content.Context
 import android.content.SharedPreferences
 import app.smartattend.Constants
+import app.smartattend.Constants.IN_PROGRESS
 import app.smartattend.Constants.IS_ADMIN
 import app.smartattend.Constants.IS_LECTURER
 import app.smartattend.Constants.LOGGED_IN
@@ -16,4 +17,6 @@ class AppPreferences(private val ctx: Context) {
         set(value) = preferences.edit().putBoolean(IS_ADMIN, value).apply()
     var isLecturer = preferences.getBoolean(IS_LECTURER, false)
         set(value) = preferences.edit().putBoolean(IS_LECTURER, value).apply()
+    var inProgress = preferences.getBoolean(IN_PROGRESS, false)
+        set(value) = preferences.edit().putBoolean(IN_PROGRESS, value).apply()
 }
