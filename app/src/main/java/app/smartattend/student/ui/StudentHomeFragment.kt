@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.zxing.integration.android.IntentIntegrator
+import java.util.*
 
 
 class StudentHomeFragment : Fragment() {
@@ -62,7 +63,11 @@ class StudentHomeFragment : Fragment() {
         try {
             if (Gson().fromJson(qrCodeContent, Lesson::class.java) != null){
                 val lesson: Lesson = Gson().fromJson(qrCodeContent, Lesson::class.java)
-                ProgressManager.startProgress(requireContext())
+                if(inTime(lesson.startTime, lesson.endTime)) {
+                    ProgressManager.startProgress(requireContext())
+                }
+                else
+                    snack("Lesson not in Progress now")
             }
             else{
                 snack("Invalid QR Code")
@@ -71,6 +76,11 @@ class StudentHomeFragment : Fragment() {
         catch (jse: JsonSyntaxException){
             snack("Invalid QR Code")
         }
+    }
+
+    private fun inTime(startTime: Long, endTime: Long): Boolean {
+        val currentTime: Long = Calendar.getInstance().timeInMillis
+        return currentTime in startTime..endTime
     }
 
     fun snack(message: String, length: Int = Snackbar.LENGTH_SHORT){
