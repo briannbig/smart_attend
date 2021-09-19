@@ -24,7 +24,7 @@ class StudentHomeFragment : Fragment() {
     ): View{
         binding = FragmentStudentHomeBinding.inflate(inflater, container, false)
         qrScanIntegrator = IntentIntegrator.forSupportFragment(this).apply {
-            setOrientationLocked(false)
+            setOrientationLocked(true)
             setPrompt("Scan bar code to sign in a lesson/class")
             setBeepEnabled(true)
             setCameraId(0)
