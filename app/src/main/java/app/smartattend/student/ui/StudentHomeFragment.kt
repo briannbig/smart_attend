@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.smartattend.R
+import app.smartattend.commons.LessonViewModel
 import app.smartattend.commons.ProgressManager
 import app.smartattend.databinding.FragmentStudentHomeBinding
 import app.smartattend.model.Lesson
@@ -23,6 +25,7 @@ class StudentHomeFragment : Fragment() {
 
     private lateinit var binding: FragmentStudentHomeBinding
     private var qrScanIntegrator: IntentIntegrator? =null
+    private lateinit var lessonViewModel: LessonViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +38,7 @@ class StudentHomeFragment : Fragment() {
             setBeepEnabled(true)
             setCameraId(0)
         }
+        lessonViewModel = ViewModelProvider(this.requireActivity()).get(LessonViewModel::class.java)
         binding.card3.setOnClickListener {
             if (ProgressManager.inProgress(requireContext())) {
                 findNavController().navigate(R.id.action_navigation_student_home_to_lessonFragment)
@@ -64,6 +68,7 @@ class StudentHomeFragment : Fragment() {
             if (Gson().fromJson(qrCodeContent, Lesson::class.java) != null){
                 val lesson: Lesson = Gson().fromJson(qrCodeContent, Lesson::class.java)
                 if(inTime(lesson.startTime, lesson.endTime)) {
+                    lessonViewModel.updateLesson(lesson)
                     ProgressManager.startProgress(requireContext())
                 }
                 else
