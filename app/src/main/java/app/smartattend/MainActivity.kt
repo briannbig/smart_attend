@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
             else -> {
-                startActivity(Intent(this, StudentActivity::class.java))
+                startActivity(Intent(this, LecturerActivity::class.java))
                 finish()
             }
         }
