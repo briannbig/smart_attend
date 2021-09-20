@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.13072916666666667" />
         <entry key="app/src/main/res/layout/fragment_classes.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_courses.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_create_lesson.xml" value="0.2140625" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.2115036231884058" />
         <entry key="app/src/main/res/layout/fragment_edit_class.xml" value="0.2140625" />
         <entry key="app/src/main/res/layout/fragment_edit_course.xml" value="0.2140625" />
@@ -35,5 +36,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="SuppressABINotification">
+    <option name="modulesWithSuppressedNotConfigured">
+      <set>
+        <option value="Smart_Attend.app" />
+      </set>
+    </option>
   </component>
 </project>
