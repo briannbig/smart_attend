@@ -28,7 +28,7 @@ class LessonFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLessonBinding.inflate(inflater, container, false)
-        lessonViewModel = ViewModelProvider(this).get(LessonViewModel::class.java)
+        lessonViewModel = ViewModelProvider(this.requireActivity()).get(LessonViewModel::class.java)
         btmSheet = binding.root.findViewById(R.id.layout_bottomSheetBehaviorShare)
         ivQRCode = binding.root.findViewById(R.id.ivDisplayQR)
         val bottomSheetBehavior = BottomSheetBehavior.from(btmSheet)
@@ -54,6 +54,11 @@ class LessonFragment : Fragment() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
             }
         })
+
+        lessonViewModel.getLesson().observe(this.requireActivity(), {
+            binding.tvCourseCode.text = it.course
+        })
+
         return binding.root
     }
     private fun setQRImage() {

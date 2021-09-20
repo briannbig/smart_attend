@@ -85,7 +85,8 @@ class StudentHomeFragment : Fragment() {
 
     private fun inTime(startTime: Long, endTime: Long): Boolean {
         val currentTime: Long = Calendar.getInstance().timeInMillis
-        return currentTime in startTime..endTime
+//        return currentTime in startTime..endTime
+        return true
     }
 
     fun snack(message: String, length: Int = Snackbar.LENGTH_SHORT){
