@@ -1,5 +1,6 @@
 package app.smartattend.adapters
 
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,8 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import app.smartattend.R
 import app.smartattend.model.Course
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
 
-class CourseAdapter(private val courses: ArrayList<Course> ) : RecyclerView.Adapter<CourseAdapter.ViewHolder>(){
+class CourseAdapter(options : FirebaseRecyclerOptions<Course>): FirebaseRecyclerAdapter<Course, CourseAdapter.ViewHolder>(options){
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val tvCode: TextView = itemView.findViewById(R.id.tv_course_code)
@@ -21,21 +24,18 @@ class CourseAdapter(private val courses: ArrayList<Course> ) : RecyclerView.Adap
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_course, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return  ViewHolder(inflater.inflate(R.layout.list_item_course, parent, false))
     }
 
-    override fun onBindViewHolder(holder: CourseAdapter.ViewHolder, position: Int) {
-        val course: Course = courses[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Course) {
         holder.apply {
-            tvCode.text = course.code
-            tvTitle.text = course.title
-            tvLec.text = course.title
+            tvCode.text = model.code
+            tvTitle.text = model.title
+            tvLec.text = model.lecturer
         }
     }
 
-    override fun getItemCount(): Int {
-        return courses.size
-    }
+
 }

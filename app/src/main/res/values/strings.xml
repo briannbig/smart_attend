@@ -33,4 +33,5 @@
     <string name="create_session">create session</string>
     <string name="select_end_time">end time</string>
     <string name="okay">okay</string>
+    <string name="log_out">log out</string>
 </resources>
