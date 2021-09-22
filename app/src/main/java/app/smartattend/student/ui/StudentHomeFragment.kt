@@ -13,6 +13,7 @@ import app.smartattend.commons.LessonViewModel
 import app.smartattend.commons.ProgressManager
 import app.smartattend.databinding.FragmentStudentHomeBinding
 import app.smartattend.model.Lesson
+import app.smartattend.preferences.AppPreferences
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
@@ -69,6 +70,11 @@ class StudentHomeFragment : Fragment() {
                 val lesson: Lesson = Gson().fromJson(qrCodeContent, Lesson::class.java)
                 if(inTime(lesson.startTime, lesson.endTime)) {
                     lessonViewModel.updateLesson(lesson)
+                    AppPreferences(requireContext()).apply {
+                        lessonCourseCode = lesson.course
+                        lessonStartTime = lesson.startTime
+                        lessonEndTime = lesson.endTime
+                    }
                     ProgressManager.startProgress(requireContext(), lesson.endTime)
                 }
                 else

@@ -12,4 +12,7 @@ object Constants {
     const val IS_LECTURER = "IS_LECTURER"
     const val USER_TYPE = "USER_TYPE"
     const val USER_REG = "LEC_NO"
+    const val lesson_course_code = "LESSON_COURSE_CODE"
+    const val lesson_start_time = "LESSON_START_TIME"
+    const val lesson_end_time = "LESSON_END_TIME"
 }

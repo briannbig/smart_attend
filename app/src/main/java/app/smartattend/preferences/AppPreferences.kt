@@ -25,4 +25,10 @@ class AppPreferences(private val ctx: Context) {
         set(value) = preferences.edit().putString(USER_TYPE, value).apply()
     var userReg = preferences.getString(USER_REG, "")
         set(value) = preferences.edit().putString(USER_REG, value).apply()
+    var lessonCourseCode = preferences.getString(Constants.lesson_course_code, "")
+        set(value) = preferences.edit().putString(Constants.lesson_course_code, value).apply()
+    var lessonStartTime = preferences.getLong(Constants.lesson_start_time, 0L)
+        set(value) = preferences.edit().putLong(Constants.lesson_start_time, value).apply()
+    var lessonEndTime = preferences.getLong(Constants.lesson_end_time, 0L)
+        set(value) = preferences.edit().putLong(Constants.lesson_end_time, value).apply()
 }

@@ -48,7 +48,14 @@ class CreateLessonFragment : Fragment() {
             val course: Course = binding.spinnerCourses.selectedItem as Course
             lessonViewModel.getLesson().value = Lesson(course.code, Calendar.getInstance().timeInMillis,
             lessonViewModel.endTime.value)
-            ProgressManager.startProgress(requireContext(), lessonViewModel.endTime.value!!)
+            lessonViewModel.endTime.value = lessonViewModel.getLesson().value!!.endTime
+            FirebaseDB.lessonRef.child(course.code).setValue(lessonViewModel.getLesson().value)
+            AppPreferences(requireContext()).apply {
+                lessonCourseCode = lessonViewModel.getLesson().value!!.course
+                lessonStartTime = lessonViewModel.getLesson().value!!.startTime
+                lessonEndTime = lessonViewModel.getLesson().value!!.endTime
+            }
+            ProgressManager.startProgress(requireContext(), lessonViewModel.getLesson().value!!.endTime)
             snack("success")
             findNavController().popBackStack()
         }else

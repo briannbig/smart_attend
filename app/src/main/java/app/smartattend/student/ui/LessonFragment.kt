@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import app.smartattend.R
 import app.smartattend.commons.LessonViewModel
+import app.smartattend.commons.ProgressManager
 import app.smartattend.databinding.FragmentLessonBinding
+import app.smartattend.preferences.AppPreferences
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
@@ -55,6 +57,7 @@ class LessonFragment : Fragment() {
             }
         })
 
+        loadLesson()
         lessonViewModel.getLesson().observe(this.requireActivity(), {
             binding.tvCourseCode.text = it.course
         })
@@ -73,5 +76,9 @@ class LessonFragment : Fragment() {
 
     fun snack(message: String, length: Int = Snackbar.LENGTH_SHORT){
         Snackbar.make(requireView().rootView, message, length).show()
+    }
+    private fun loadLesson(){
+         ProgressManager.checkProgress(requireContext(), lessonViewModel)
+
     }
 }

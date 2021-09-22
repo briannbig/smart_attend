@@ -48,10 +48,9 @@ class  NotificationUtils(base: Context) : ContextWrapper(base) {
         }
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
         return NotificationCompat.Builder(applicationContext, MYCHANNEL_ID)
-            .setContentTitle("In Progress")
-            .setContentText("Class Session ended")
-            .setSmallIcon(R.drawable.ic_outline_meeting_room_24)
-            .setColor(Color.YELLOW)
+            .setContentTitle("Class Session")
+            .setContentText("Session has ended")
+            .setSmallIcon(R.drawable.ic_app_logo)
             .setContentIntent(pendingIntent)
             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
             .setAutoCancel(true)
