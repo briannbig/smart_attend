@@ -79,6 +79,5 @@ class LessonFragment : Fragment() {
     }
     private fun loadLesson(){
          ProgressManager.checkProgress(requireContext(), lessonViewModel)
-
     }
 }

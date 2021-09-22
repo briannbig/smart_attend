@@ -1,5 +1,6 @@
 package app.smartattend.firebase
 
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -11,4 +12,8 @@ object FirebaseDB {
     private val studentRef = database.getReference("Students")
     val userRef = database.getReference("Users")
     val classRef = database.getReference("Classes")
+
+    fun getAttendanceRef(courseCode: String, startTime: String): DatabaseReference {
+        return lessonRef.child("$courseCode-$startTime/attendees")
+    }
 }

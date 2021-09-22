@@ -49,7 +49,8 @@ class CreateLessonFragment : Fragment() {
             lessonViewModel.getLesson().value = Lesson(course.code, Calendar.getInstance().timeInMillis,
             lessonViewModel.endTime.value)
             lessonViewModel.endTime.value = lessonViewModel.getLesson().value!!.endTime
-            FirebaseDB.lessonRef.child(course.code).setValue(lessonViewModel.getLesson().value)
+            val lesson = lessonViewModel.getLesson().value
+            FirebaseDB.lessonRef.child("${course.code}-${lesson!!.startTime}").setValue(lesson)
             AppPreferences(requireContext()).apply {
                 lessonCourseCode = lessonViewModel.getLesson().value!!.course
                 lessonStartTime = lessonViewModel.getLesson().value!!.startTime
