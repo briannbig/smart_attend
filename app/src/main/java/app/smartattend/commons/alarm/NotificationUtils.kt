@@ -51,6 +51,7 @@ class  NotificationUtils(base: Context) : ContextWrapper(base) {
             .setContentTitle("Class Session")
             .setContentText("Session has ended")
             .setSmallIcon(R.drawable.ic_app_logo)
+            .setColor(getColor(R.color.secondaryDarkColor))
             .setContentIntent(pendingIntent)
             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
             .setAutoCancel(true)

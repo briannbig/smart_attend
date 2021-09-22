@@ -11,9 +11,13 @@ import app.smartattend.R
 import app.smartattend.commons.LessonViewModel
 import app.smartattend.commons.ProgressManager
 import app.smartattend.databinding.FragmentLessonBinding
+import app.smartattend.firebase.FirebaseDB
 import app.smartattend.preferences.AppPreferences
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -57,7 +61,6 @@ class LessonFragment : Fragment() {
             }
         })
 
-        loadLesson()
         lessonViewModel.getLesson().observe(this.requireActivity(), {
             binding.tvCourseCode.text = it.course
         })
@@ -65,7 +68,22 @@ class LessonFragment : Fragment() {
         return binding.root
     }
     private fun setQRImage() {
-       val url = Gson().toJson(lessonViewModel.getLesson().value)
+        loadLesson()
+        val lesson = lessonViewModel.getLesson().value!!
+        val ref = FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString())
+        ref.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    lesson.apply {
+                        course = snapshot.child("course").value.toString()
+                        startTime = snapshot.child("startTime").value as Long?
+                        endTime = snapshot.child("endTime").value as Long?
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+       val url = Gson().toJson(lesson)
         try {
             val barcodeEncoder = BarcodeEncoder()
             val bitmap = barcodeEncoder.encodeBitmap(url, BarcodeFormat.QR_CODE, 400, 400)

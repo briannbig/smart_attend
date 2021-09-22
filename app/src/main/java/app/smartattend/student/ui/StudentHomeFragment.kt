@@ -2,6 +2,7 @@ package app.smartattend.student.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.zxing.integration.android.IntentIntegrator
 import java.util.*
+import kotlin.math.log
 
 
 class StudentHomeFragment : Fragment() {
@@ -56,6 +58,7 @@ class StudentHomeFragment : Fragment() {
             if (result.contents == null){
             }
             else{
+                Log.d("QR-results", result.contents)
                 attend(result.contents)
             }
         }
@@ -82,9 +85,11 @@ class StudentHomeFragment : Fragment() {
                         }
                         ProgressManager.startProgress(requireContext(), lesson.endTime)
                     }
-                }
                 else
                     snack("Lesson not in Progress now")
+                }
+            else
+                snack("Invalid QR Code")
         }
         catch (jse: JsonSyntaxException){
             snack("Invalid QR Code")

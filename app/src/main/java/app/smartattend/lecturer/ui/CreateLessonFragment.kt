@@ -56,7 +56,7 @@ class CreateLessonFragment : Fragment() {
                 lessonStartTime = lessonViewModel.getLesson().value!!.startTime
                 lessonEndTime = lessonViewModel.getLesson().value!!.endTime
             }
-            ProgressManager.startProgress(requireContext(), lessonViewModel.getLesson().value!!.endTime)
+            ProgressManager.startProgress(requireContext(), lesson.endTime)
             snack("success")
             findNavController().popBackStack()
         }else
