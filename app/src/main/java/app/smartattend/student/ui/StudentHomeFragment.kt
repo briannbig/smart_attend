@@ -69,7 +69,7 @@ class StudentHomeFragment : Fragment() {
                 val lesson: Lesson = Gson().fromJson(qrCodeContent, Lesson::class.java)
                 if(inTime(lesson.startTime, lesson.endTime)) {
                     lessonViewModel.updateLesson(lesson)
-                    ProgressManager.startProgress(requireContext())
+                    ProgressManager.startProgress(requireContext(), lesson.endTime)
                 }
                 else
                     snack("Lesson not in Progress now")

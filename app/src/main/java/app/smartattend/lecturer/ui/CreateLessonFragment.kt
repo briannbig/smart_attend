@@ -48,7 +48,7 @@ class CreateLessonFragment : Fragment() {
             val course: Course = binding.spinnerCourses.selectedItem as Course
             lessonViewModel.getLesson().value = Lesson(course.code, Calendar.getInstance().timeInMillis,
             lessonViewModel.endTime.value)
-            ProgressManager.startProgress(requireContext())
+            ProgressManager.startProgress(requireContext(), lessonViewModel.endTime.value!!)
             snack("success")
             findNavController().popBackStack()
         }else
