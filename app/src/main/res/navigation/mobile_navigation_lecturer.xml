@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation_lecturer"
+    android:label="@string/app_name"
     app:startDestination="@id/navigation_lecturer_home">
 
     <fragment
         android:id="@+id/navigation_lecturer_home"
         android:name="app.smartattend.lecturer.ui.LecturerHomeFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_lecturer_home" >
+        tools:layout="@layout/fragment_lecturer_home">
         <action
             android:id="@+id/action_navigation_lecturer_home_to_navigation_lesson_fragment"
             app:destination="@id/navigation_lesson_fragment" />

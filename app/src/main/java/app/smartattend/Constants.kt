@@ -11,4 +11,5 @@ object Constants {
     const val IS_ADMIN = "IS_ADMIN"
     const val IS_LECTURER = "IS_LECTURER"
     const val USER_TYPE = "USER_TYPE"
+    const val USER_REG = "LEC_NO"
 }

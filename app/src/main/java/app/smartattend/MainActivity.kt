@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                         if (user.password == password){
                             AppPreferences(applicationContext).apply {
                                 userType = user.userType
+                                userReg = user.username
                                 logged_in = true
                                 loadApp()
                             }

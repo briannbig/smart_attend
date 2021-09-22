@@ -42,4 +42,9 @@ public class Course {
     public void setClassId(String classId) {
         this.classId = classId;
     }
+
+    @Override
+    public String toString() {
+        return  code + " "+ title + " "+ classId;
+    }
 }

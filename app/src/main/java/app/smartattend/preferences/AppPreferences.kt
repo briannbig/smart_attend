@@ -6,6 +6,7 @@ import app.smartattend.Constants
 import app.smartattend.Constants.IN_PROGRESS
 import app.smartattend.Constants.IS_ADMIN
 import app.smartattend.Constants.IS_LECTURER
+import app.smartattend.Constants.USER_REG
 import app.smartattend.Constants.LOGGED_IN
 import app.smartattend.Constants.USER_TYPE
 
@@ -22,4 +23,6 @@ class AppPreferences(private val ctx: Context) {
         set(value) = preferences.edit().putBoolean(IN_PROGRESS, value).apply()
     var userType = preferences.getString(Constants.USER_TYPE, "")
         set(value) = preferences.edit().putString(USER_TYPE, value).apply()
+    var userReg = preferences.getString(USER_REG, "")
+        set(value) = preferences.edit().putString(USER_REG, value).apply()
 }
