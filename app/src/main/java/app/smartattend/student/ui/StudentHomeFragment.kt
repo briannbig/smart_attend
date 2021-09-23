@@ -40,6 +40,8 @@ class StudentHomeFragment : Fragment() {
             setOrientationLocked(true)
             setPrompt("Scan bar code to sign in a lesson/class")
             setBeepEnabled(true)
+            setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+            setTimeout(10000)
             setCameraId(0)
         }
         lessonViewModel = ViewModelProvider(this.requireActivity()).get(LessonViewModel::class.java)
