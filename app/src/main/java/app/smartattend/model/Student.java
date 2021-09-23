@@ -1,7 +1,15 @@
 package app.smartattend.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Student {
-    private String reg_no, name, enrolledClass;
+    @PrimaryKey(autoGenerate = true) private int id;
+    @ColumnInfo private String reg_no;
+    @ColumnInfo private String name;
+    @ColumnInfo private String enrolledClass;
     public Student(){}
     public Student(String reg_no, String name, String enrolledClass) {
         this.reg_no = reg_no;
@@ -31,5 +39,13 @@ public class Student {
 
     public void setEnrolledClass(String enrolledClass) {
         this.enrolledClass = enrolledClass;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

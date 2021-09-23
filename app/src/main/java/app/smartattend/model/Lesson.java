@@ -1,8 +1,15 @@
 package app.smartattend.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Lesson {
-    private String course;
-    private Long startTime, endTime;
+    @PrimaryKey(autoGenerate = true) private int id;
+    @ColumnInfo private String course;
+    @ColumnInfo private Long startTime;
+    @ColumnInfo private Long endTime;
 
     public Lesson(String course, Long startTime, Long endTime) {
         this.course = course;
@@ -35,5 +42,13 @@ public class Lesson {
 
     public void setEndTime(Long endTime) {
         this.endTime = endTime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

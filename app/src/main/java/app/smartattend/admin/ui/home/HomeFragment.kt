@@ -28,10 +28,10 @@ class HomeFragment : Fragment() {
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.card3.setOnClickListener {
+        binding.card2.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_coursesFragment)
         }
-        binding.card2.setOnClickListener {
+        binding.card3.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_classesFragment)
         }
 

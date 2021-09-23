@@ -42,4 +42,5 @@
     <string name="sist">Sang\'alo Institute Of Science and technology</string>
     <string name="lesson_expalnation_students">Mark attendance and share code with classmates</string>
     <string name="log_out_of_the_app">Log out of the app</string>
+    <string name="view_and_manage_classes">View and manage Classes</string>
 </resources>
