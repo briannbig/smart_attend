@@ -23,6 +23,7 @@
         <entry key="app/src/main/res/layout/fragment_student_home.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_view_course.xml" value="0.2140625" />
         <entry key="app/src/main/res/layout/layout_bottom_sheet_share_qr.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/list_item_attendee.xml" value="0.25" />
         <entry key="app/src/main/res/layout/list_item_class.xml" value="0.2140625" />
         <entry key="app/src/main/res/layout/list_item_course.xml" value="0.2115036231884058" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2140625" />
