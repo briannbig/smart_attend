@@ -40,4 +40,5 @@
     <string name="session_explanation">Start new or view a session in progress</string>
     <string name="lesson_explanation">View and manage courses</string>
     <string name="sist">Sang\'alo Institute Of Science and technology</string>
+    <string name="lesson_expalnation_students">Mark attendance and share code with classmates</string>
 </resources>
