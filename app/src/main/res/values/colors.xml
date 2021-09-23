@@ -8,4 +8,8 @@
   <color name="secondaryDarkColor">#003d00</color>
   <color name="primaryTextColor">#ffffff</color>
   <color name="secondaryTextColor">#ffffff</color>
+  <color name="customDark">#2A2A2A</color>
+  <color name="customBlue">@android:color/holo_blue_light</color>
+  <color name="customWhite">#f3f3f3</color>
+<!--  <color name="teal_200">#FF03DAC5</color>-->
 </resources>
