@@ -71,22 +71,27 @@ class StudentHomeFragment : Fragment() {
 
     private fun attend(qrCodeContent: String) {
         try {
-            if (Gson().fromJson(qrCodeContent, Lesson::class.java) != null){
+            if (Gson().fromJson(qrCodeContent, Lesson::class.java) != null) {
                 val lesson: Lesson = Gson().fromJson(qrCodeContent, Lesson::class.java)
-                if(inTime(lesson.startTime, lesson.endTime)) {
-                    val attendanceRef = FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString())
-                    attendanceRef.apply {
-                        child("reg_No").setValue(AppPreferences(requireContext()).userReg)
-                        child("time_In").setValue(Calendar.getInstance().timeInMillis)
-                    }
+                if (inTime(lesson.startTime, lesson.endTime)) {
+                    if (belongsToClass(lesson.course)){
+                        val attendanceRef =
+                            FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString())
+                        attendanceRef.apply {
+                            child("reg_No").setValue(AppPreferences(requireContext()).userReg)
+                            child("time_In").setValue(Calendar.getInstance().timeInMillis)
+                        }
                         lessonViewModel.updateLesson(lesson)
                         AppPreferences(requireContext()).apply {
                             lessonCourseCode = lesson.course
                             lessonStartTime = lesson.startTime
                             lessonEndTime = lesson.endTime
                         }
-                        ProgressManager.startProgress(requireContext(), lesson.endTime)
+                    ProgressManager.startProgress(requireContext(), lesson.endTime)
                     }
+                    else
+                        snack("Not a member of this class!!")
+                }
                 else
                     snack("Lesson not in Progress now")
                 }
@@ -96,6 +101,10 @@ class StudentHomeFragment : Fragment() {
         catch (jse: JsonSyntaxException){
             snack("Invalid QR Code")
         }
+    }
+
+    private fun belongsToClass(courseCode: String): Boolean {
+        return true
     }
 
     private fun inTime(startTime: Long, endTime: Long): Boolean {
