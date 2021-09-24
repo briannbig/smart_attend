@@ -17,11 +17,13 @@ import app.smartattend.databinding.FragmentLessonBinding
 import app.smartattend.firebase.FirebaseDB
 import app.smartattend.model.Attendee
 import app.smartattend.model.Course
+import app.smartattend.model.Lesson
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.google.zxing.BarcodeFormat
@@ -34,14 +36,21 @@ class LessonFragment : Fragment() {
     private lateinit var lessonViewModel: LessonViewModel
     private lateinit var btmSheet: View
     private lateinit var ivQRCode: ImageView
+    private lateinit var lesson: Lesson
+    private lateinit var lessonRef: DatabaseReference
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLessonBinding.inflate(inflater, container, false)
-        lessonViewModel = ViewModelProvider(this.requireActivity()).get(LessonViewModel::class.java)
+        lessonViewModel = ViewModelProvider(this).get(LessonViewModel::class.java)
         btmSheet = binding.root.findViewById(R.id.layout_bottomSheetBehaviorShare)
         ivQRCode = binding.root.findViewById(R.id.ivDisplayQR)
+
+        lesson = lessonViewModel.getLesson()!!
+        lessonRef = FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString())
+
         val bottomSheetBehavior = BottomSheetBehavior.from(btmSheet)
         binding.fabShareCode.setOnClickListener {
             if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED){
@@ -66,7 +75,7 @@ class LessonFragment : Fragment() {
             }
         })
 
-        lessonViewModel.getLesson()?.observe(this.requireActivity(), {
+        lessonViewModel.lesson.observe(this.requireActivity(), {
             binding.tvCourseCode.text = it.course
         })
 
@@ -74,10 +83,7 @@ class LessonFragment : Fragment() {
         return binding.root
     }
     private fun setQRImage() {
-        if (inProgress()){
-            val lesson = lessonViewModel.getLesson()?.value!!
-            val ref = FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString())
-            ref.addValueEventListener(object: ValueEventListener{
+            lessonRef.addValueEventListener(object: ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()){
                         lesson.apply {
@@ -95,12 +101,10 @@ class LessonFragment : Fragment() {
                 val bitmap = barcodeEncoder.encodeBitmap(url, BarcodeFormat.QR_CODE, 400, 400)
                 ivQRCode.setImageBitmap(bitmap)
             }catch (e: Exception){}
-        }
 
     }
     private fun setUpRv(){
-        val query = FirebaseDB.getAttendanceRef(lessonViewModel.lesson.value!!.course,
-        lessonViewModel.getLesson()!!.value!!.startTime.toString())
+        val query = lessonRef
         val options: FirebaseRecyclerOptions<Attendee> = FirebaseRecyclerOptions.Builder<Attendee>()
             .setQuery(query, Attendee::class.java).build()
         val adapter = AttendeeAdapter(options)
@@ -113,8 +117,5 @@ class LessonFragment : Fragment() {
 
     fun snack(message: String, length: Int = Snackbar.LENGTH_SHORT){
         Snackbar.make(requireView().rootView, message, length).show()
-    }
-    private fun inProgress(): Boolean{
-         return ProgressManager.checkProgress(requireContext(), lessonViewModel)
     }
 }

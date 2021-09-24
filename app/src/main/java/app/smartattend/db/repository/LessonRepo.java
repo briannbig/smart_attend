@@ -10,19 +10,24 @@ import app.smartattend.model.Lesson;
 
 public class LessonRepo {
     private final AppDao appDao;
-    private final LiveData<Lesson> lesson;
+    private Lesson lesson;
 
 
     public LessonRepo(Application application) {
         AppDb db = AppDb.getInstance(application);
         appDao = db.appDao();
-        lesson = appDao.getLesson();
+        setLesson();
     }
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    public LiveData<Lesson> getCurrentLesson() {
+    public Lesson getCurrentLesson() {
         return lesson;
+    }
+    public void setLesson(){
+        AppDb.databaseWriteExecutor.execute(()->{
+            lesson = appDao.getLesson();
+        });
     }
     public void delete(){
         AppDb.databaseWriteExecutor.execute(()->{

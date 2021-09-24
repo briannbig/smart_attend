@@ -8,6 +8,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import app.smartattend.R
 import app.smartattend.databinding.ActivityStudentBinding
+import app.smartattend.preferences.AppPreferences
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class StudentActivity : AppCompatActivity() {
@@ -17,6 +18,7 @@ class StudentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+//        AppPreferences(baseContext).preferences.edit().clear().apply()
         binding = ActivityStudentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

@@ -15,9 +15,9 @@ class LessonViewModel(application: Application) : AndroidViewModel(application){
 
     fun updateLesson(lesson: Lesson) {
         lessonRepo.insert(lesson)
-        this.lesson.value = lessonRepo.currentLesson.value
+        this.lesson.value = lessonRepo.currentLesson
     }
-    fun getLesson() : LiveData<Lesson>? {
+    fun getLesson() : Lesson? {
         return lessonRepo.currentLesson
     }
     fun clearLesson(){

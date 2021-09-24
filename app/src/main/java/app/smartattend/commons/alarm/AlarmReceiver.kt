@@ -12,8 +12,6 @@ class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 //        end progress
-        val lessonRepo = LessonRepo(context.applicationContext as Application?)
-        lessonRepo.delete()
         ProgressManager.endProgress(context)
 //        show notification
         val notificationUtils = NotificationUtils(context)
