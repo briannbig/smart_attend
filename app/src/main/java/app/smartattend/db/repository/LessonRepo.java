@@ -6,9 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import app.smartattend.db.AppDao;
 import app.smartattend.db.AppDb;
-import app.smartattend.model.Lecturer;
 import app.smartattend.model.Lesson;
-import app.smartattend.model.Student;
 
 public class LessonRepo {
     private final AppDao appDao;
@@ -23,8 +21,13 @@ public class LessonRepo {
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    public LiveData<Lesson> getAllAppointments() {
+    public LiveData<Lesson> getCurrentLesson() {
         return lesson;
+    }
+    public void delete(){
+        AppDb.databaseWriteExecutor.execute(()->{
+            appDao.deleteLesson();
+        });
     }
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures

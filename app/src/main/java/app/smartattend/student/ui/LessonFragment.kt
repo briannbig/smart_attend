@@ -12,7 +12,6 @@ import app.smartattend.commons.LessonViewModel
 import app.smartattend.commons.ProgressManager
 import app.smartattend.databinding.FragmentLessonBinding
 import app.smartattend.firebase.FirebaseDB
-import app.smartattend.preferences.AppPreferences
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DataSnapshot
@@ -61,41 +60,42 @@ class LessonFragment : Fragment() {
             }
         })
 
-        lessonViewModel.getLesson().observe(this.requireActivity(), {
+        lessonViewModel.getLesson()?.observe(this.requireActivity(), {
             binding.tvCourseCode.text = it.course
         })
 
         return binding.root
     }
     private fun setQRImage() {
-        loadLesson()
-        val lesson = lessonViewModel.getLesson().value!!
-        val ref = FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString())
-        ref.addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
-                    lesson.apply {
-                        course = snapshot.child("course").value.toString()
-                        startTime = snapshot.child("startTime").value as Long?
-                        endTime = snapshot.child("endTime").value as Long?
+        if (inProgress()){
+            val lesson = lessonViewModel.getLesson()?.value!!
+            val ref = FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString())
+            ref.addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()){
+                        lesson.apply {
+                            course = snapshot.child("course").value.toString()
+                            startTime = snapshot.child("startTime").value as Long?
+                            endTime = snapshot.child("endTime").value as Long?
+                        }
                     }
                 }
-            }
-            override fun onCancelled(error: DatabaseError) {}
-        })
-       val url = Gson().toJson(lesson)
-        try {
-            val barcodeEncoder = BarcodeEncoder()
-            val bitmap = barcodeEncoder.encodeBitmap(url, BarcodeFormat.QR_CODE, 400, 400)
-            ivQRCode.setImageBitmap(bitmap)
-        }catch (e: Exception){}
+                override fun onCancelled(error: DatabaseError) {}
+            })
+            val url = Gson().toJson(lesson)
+            try {
+                val barcodeEncoder = BarcodeEncoder()
+                val bitmap = barcodeEncoder.encodeBitmap(url, BarcodeFormat.QR_CODE, 400, 400)
+                ivQRCode.setImageBitmap(bitmap)
+            }catch (e: Exception){}
+        }
 
     }
 
     fun snack(message: String, length: Int = Snackbar.LENGTH_SHORT){
         Snackbar.make(requireView().rootView, message, length).show()
     }
-    private fun loadLesson(){
-         ProgressManager.checkProgress(requireContext(), lessonViewModel)
+    private fun inProgress(): Boolean{
+         return ProgressManager.checkProgress(requireContext(), lessonViewModel)
     }
 }

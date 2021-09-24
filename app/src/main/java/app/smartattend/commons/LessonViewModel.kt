@@ -1,19 +1,27 @@
 package app.smartattend.commons
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import app.smartattend.db.repository.LessonRepo
 import app.smartattend.model.Lesson
 
-class LessonViewModel() : ViewModel(){
-    private var lesson = MutableLiveData<Lesson>()
+class LessonViewModel(application: Application) : AndroidViewModel(application){
+    private val lessonRepo = LessonRepo(application)
+    var lesson = MutableLiveData<Lesson>()
     var courseCode = MutableLiveData<String>()
     var courseTitle = MutableLiveData<String>()
 
     fun updateLesson(lesson: Lesson) {
-        this.lesson.value = lesson
+        lessonRepo.insert(lesson)
+        this.lesson.value = lessonRepo.currentLesson.value
     }
-    fun getLesson() : MutableLiveData<Lesson> {
-        return lesson
+    fun getLesson() : LiveData<Lesson>? {
+        return lessonRepo.currentLesson
+    }
+    fun clearLesson(){
+        lessonRepo.delete()
     }
     var date: String? = null
     var startTime = MutableLiveData<Long>()

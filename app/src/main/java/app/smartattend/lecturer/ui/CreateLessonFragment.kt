@@ -32,7 +32,7 @@ class CreateLessonFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCreateLessonBinding.inflate(inflater, container, false)
-        lessonViewModel = ViewModelProvider(this.requireActivity()).get(LessonViewModel::class.java)
+        lessonViewModel = ViewModelProvider(this).get(LessonViewModel::class.java)
         binding.button3.setOnClickListener {
             TimePickerFragment(binding.tvEndTime, lessonViewModel).show(requireActivity().supportFragmentManager, "time picker")
         }
@@ -46,15 +46,19 @@ class CreateLessonFragment : Fragment() {
     private fun startSession(){
         if (binding.tvEndTime.text != "time not set"){
             val course: Course = binding.spinnerCourses.selectedItem as Course
-            lessonViewModel.getLesson().value = Lesson(course.code, Calendar.getInstance().timeInMillis,
-            lessonViewModel.endTime.value)
-            lessonViewModel.endTime.value = lessonViewModel.getLesson().value!!.endTime
-            val lesson = lessonViewModel.getLesson().value
-            FirebaseDB.lessonRef.child("${course.code}-${lesson!!.startTime}").setValue(lesson)
+            val lesson = Lesson(course.code, Calendar.getInstance().timeInMillis,
+             lessonViewModel.endTime.value)
+            lessonViewModel.apply {
+                courseCode.value = course.code
+                startTime.value = lesson.startTime
+                endTime.value = lessonViewModel.endTime.value
+            }
+            FirebaseDB.lessonRef.child("${course.code}-${lesson.startTime}").setValue(lesson)
+            lessonViewModel.updateLesson(lesson)
             AppPreferences(requireContext()).apply {
-                lessonCourseCode = lessonViewModel.getLesson().value!!.course
-                lessonStartTime = lessonViewModel.getLesson().value!!.startTime
-                lessonEndTime = lessonViewModel.getLesson().value!!.endTime
+                lessonCourseCode = lessonViewModel.courseCode.value
+                lessonStartTime = lessonViewModel.startTime.value!!
+                lessonEndTime = lessonViewModel.endTime.value!!
             }
             ProgressManager.startProgress(requireContext(), lesson.endTime)
             snack("success")

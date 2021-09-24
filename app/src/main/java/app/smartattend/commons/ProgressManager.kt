@@ -11,26 +11,23 @@ object ProgressManager {
     fun inProgress(context: Context): Boolean {
         return AppPreferences(context).inProgress
     }
-    fun checkProgress(context: Context, lessonViewModel: LessonViewModel){
-        if(AppPreferences(context).inProgress){
-            lessonViewModel.getLesson().value?.apply {
-                course = AppPreferences(context).lessonCourseCode
-                startTime = AppPreferences(context).lessonStartTime
-                endTime = AppPreferences(context).lessonEndTime
-            }
-        }
+    fun checkProgress(context: Context, lessonViewModel: LessonViewModel): Boolean {
+        return AppPreferences(context).inProgress
+
     }
     fun startProgress(context: Context, endTime:Long){
         startAlarm(context, endTime)
         AppPreferences(context).inProgress = true
     }
     fun endProgress(context: Context){
+
         AppPreferences(context).apply {
             inProgress = false
             lessonCourseCode = ""
             lessonStartTime = 0L
             lessonEndTime = 0L
         }
+
     }
     private fun startAlarm(context: Context, endTime: Long) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager

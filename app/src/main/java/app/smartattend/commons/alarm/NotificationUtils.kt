@@ -13,6 +13,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import app.smartattend.MainActivity
 import app.smartattend.R
+import app.smartattend.preferences.AppPreferences
 
 class  NotificationUtils(base: Context) : ContextWrapper(base) {
 
@@ -48,7 +49,7 @@ class  NotificationUtils(base: Context) : ContextWrapper(base) {
         }
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
         return NotificationCompat.Builder(applicationContext, MYCHANNEL_ID)
-            .setContentTitle("Class Session")
+            .setContentTitle(AppPreferences(baseContext).lessonCourseCode)
             .setContentText("Session has ended")
             .setSmallIcon(R.drawable.ic_app_logo)
             .setColor(getColor(R.color.secondaryDarkColor))
