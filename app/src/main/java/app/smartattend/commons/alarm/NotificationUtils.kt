@@ -49,7 +49,7 @@ class  NotificationUtils(base: Context) : ContextWrapper(base) {
         }
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
         return NotificationCompat.Builder(applicationContext, MYCHANNEL_ID)
-            .setContentTitle(AppPreferences(baseContext).lessonCourseCode)
+            .setContentTitle(AppPreferences(baseContext).lessonCourseCode.toString())
             .setContentText("Session has ended")
             .setSmallIcon(R.drawable.ic_app_logo)
             .setColor(getColor(R.color.secondaryDarkColor))
