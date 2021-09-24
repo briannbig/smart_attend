@@ -46,4 +46,6 @@
     <string name="attendees">Attendees</string>
     <string name="lecturers">Lecturers</string>
     <string name="view_and_manage_lecturers">View and manage Lecturers</string>
+    <string name="sample_class_code">DICT-2018-S</string>
+    <string name="students">Students</string>
 </resources>

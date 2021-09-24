@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import app.smartattend.R
 import app.smartattend.model.Class
@@ -16,7 +17,7 @@ class ClassAdapter(options: FirebaseRecyclerOptions<Class>) : FirebaseRecyclerAd
         val tvProgram: TextView = itemView.findViewById(R.id.tv_program)
         init{
             itemView.setOnClickListener{
-
+                it.findNavController().navigate(R.id.action_classesFragment_to_classFragment)
             }
         }
     }

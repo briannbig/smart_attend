@@ -45,10 +45,18 @@
         <action
             android:id="@+id/action_classesFragment_to_editClassFragment"
             app:destination="@id/editClassFragment" />
+        <action
+            android:id="@+id/action_classesFragment_to_classFragment"
+            app:destination="@id/classFragment" />
     </fragment>
     <fragment
         android:id="@+id/editClassFragment"
         android:name="app.smartattend.admin.ui.EditClassFragment"
         android:label="@string/classs"
         tools:layout="@layout/fragment_edit_class" />
+    <fragment
+        android:id="@+id/classFragment"
+        android:name="app.smartattend.admin.ui.ClassFragment"
+        android:label="@string/classs"
+        tools:layout="@layout/fragment_class" />
 </navigation>
