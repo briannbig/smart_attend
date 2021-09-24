@@ -44,4 +44,6 @@
     <string name="log_out_of_the_app">Log out of the app</string>
     <string name="view_and_manage_classes">View and manage Classes</string>
     <string name="attendees">Attendees</string>
+    <string name="lecturers">Lecturers</string>
+    <string name="view_and_manage_lecturers">View and manage Lecturers</string>
 </resources>
