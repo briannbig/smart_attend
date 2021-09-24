@@ -27,7 +27,7 @@ class ClassAdapter(options: FirebaseRecyclerOptions<Class>) : FirebaseRecyclerAd
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Class) {
         holder.apply {
-            tvId.text = model.classCode
+            tvId.text = model.id
             tvProgram.text = model.program
         }
     }

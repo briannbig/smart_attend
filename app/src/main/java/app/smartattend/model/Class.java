@@ -1,20 +1,20 @@
 package app.smartattend.model;
 
 public class Class {
-   private String classCode, program;
+   private String id, program;
 
-    public Class(String classCode, String program) {
-        this.classCode = classCode;
+    public Class(String id, String program) {
+        this.id = id;
         this.program = program;
     }
     public Class(){}
 
-    public String getClassCode() {
-        return classCode;
+    public String getId() {
+        return id;
     }
 
-    public void setClassCode(String classCode) {
-        this.classCode = classCode;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getProgram() {
