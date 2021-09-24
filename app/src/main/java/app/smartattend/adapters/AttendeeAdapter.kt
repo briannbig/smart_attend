@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import app.smartattend.R
+import app.smartattend.commons.CalenderUtil
 import app.smartattend.model.Attendee
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -28,7 +29,7 @@ class AttendeeAdapter(options: FirebaseRecyclerOptions<Attendee>) : FirebaseRecy
     override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Attendee) {
         holder.apply {
             tvRegNo.text = model.reg_no
-            tvCheckIn.text = model.check_in.toString()
+            tvCheckIn.text = CalenderUtil.longToTime(model.check_in)
         }
     }
 }

@@ -7,11 +7,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import app.smartattend.R
+import app.smartattend.adapters.AttendeeAdapter
+import app.smartattend.adapters.CourseAdapter
 import app.smartattend.commons.LessonViewModel
 import app.smartattend.commons.ProgressManager
 import app.smartattend.databinding.FragmentLessonBinding
 import app.smartattend.firebase.FirebaseDB
+import app.smartattend.model.Attendee
+import app.smartattend.model.Course
+import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DataSnapshot
@@ -64,6 +70,7 @@ class LessonFragment : Fragment() {
             binding.tvCourseCode.text = it.course
         })
 
+        setUpRv()
         return binding.root
     }
     private fun setQRImage() {
@@ -90,6 +97,18 @@ class LessonFragment : Fragment() {
             }catch (e: Exception){}
         }
 
+    }
+    private fun setUpRv(){
+        val query = FirebaseDB.getAttendanceRef(lessonViewModel.lesson.value!!.course,
+        lessonViewModel.getLesson()!!.value!!.startTime.toString())
+        val options: FirebaseRecyclerOptions<Attendee> = FirebaseRecyclerOptions.Builder<Attendee>()
+            .setQuery(query, Attendee::class.java).build()
+        val adapter = AttendeeAdapter(options)
+        binding.rvAttendees.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            this.adapter = adapter
+        }
+        adapter.startListening()
     }
 
     fun snack(message: String, length: Int = Snackbar.LENGTH_SHORT){
