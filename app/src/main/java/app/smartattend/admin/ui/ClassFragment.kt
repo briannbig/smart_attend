@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.smartattend.R
 import app.smartattend.adapters.ClassAdapter
@@ -32,12 +33,20 @@ class ClassFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentClassBinding.inflate(inflater, container, false)
-        classViewModel = ViewModelProvider(this).get(ClassViewModel::class.java)
+        classViewModel = ViewModelProvider(requireActivity()).get(ClassViewModel::class.java)
         tabLayout = binding.tabLayout
 
         coursesRef = FirebaseDB.courseRef
         studentsRef = FirebaseDB.studentRef
         setUpTabLayout()
+        binding.btnAddCourse.setOnClickListener {
+            classViewModel.classId.value = "DICT-2018-S"
+            findNavController().navigate(R.id.action_classFragment_to_editCourseFragment)
+        }
+        binding.btnAddStudent.setOnClickListener {
+            classViewModel.classId.value = "DICT-2018-S"
+            findNavController().navigate(R.id.action_classFragment_to_editStudentFragment)
+        }
         return binding.root
     }
 
@@ -58,7 +67,7 @@ class ClassFragment : Fragment() {
     }
 
     private fun setUpCoursesRv(){
-        val query = coursesRef.orderByChild("classId").equalTo(classViewModel.classs.value?.id)
+        val query = coursesRef.orderByChild("classId").equalTo(classViewModel.classId.value)
         val options: FirebaseRecyclerOptions<Course> = FirebaseRecyclerOptions.Builder<Course>()
             .setQuery(query, Course::class.java).build()
         val adapter = CourseAdapter(options)
@@ -70,7 +79,7 @@ class ClassFragment : Fragment() {
     }
     private fun setUpStudentsRv(){
 //        binding.rvItems.adapte
-        val query = studentsRef.orderByChild("enrolledClass").equalTo(classViewModel.classs.value?.id)
+        val query = studentsRef.orderByChild("enrolledClass").equalTo(classViewModel.classId.value)
         val options: FirebaseRecyclerOptions<Student> = FirebaseRecyclerOptions.Builder<Student>()
             .setQuery(query, Student::class.java).build()
         val adapter = StudentAdapter(options)

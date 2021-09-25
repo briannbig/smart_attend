@@ -6,4 +6,8 @@ import app.smartattend.model.Class
 
 class ClassViewModel: ViewModel() {
     var classs = MutableLiveData<Class>()
+    var classId = MutableLiveData<String>()
+    fun updateClass(classs: Class) {
+        this.classs.value = classs
+    }
 }

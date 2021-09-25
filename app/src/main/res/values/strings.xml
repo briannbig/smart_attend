@@ -48,4 +48,6 @@
     <string name="view_and_manage_lecturers">View and manage Lecturers</string>
     <string name="sample_class_code">DICT-2018-S</string>
     <string name="students">Students</string>
+    <string name="hint_name">name</string>
+    <string name="registration_number">registration number</string>
 </resources>
