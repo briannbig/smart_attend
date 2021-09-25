@@ -39,4 +39,9 @@ public class Lecturer {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return lecNo + " " + name;
+    }
 }

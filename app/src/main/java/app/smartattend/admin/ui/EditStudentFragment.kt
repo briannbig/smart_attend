@@ -14,6 +14,7 @@ import app.smartattend.commons.ClassViewModel
 import app.smartattend.databinding.FragmentEditStudentBinding
 import app.smartattend.firebase.FirebaseDB
 import app.smartattend.model.Student
+import app.smartattend.model.User
 
 
 class EditStudentFragment : Fragment() {
@@ -37,6 +38,7 @@ class EditStudentFragment : Fragment() {
                 val student = Student(binding.etRegNo.text.toString(), binding.etName.text.toString(),
                         classViewModel.classId.value)
             FirebaseDB.studentRef.child(student.reg_no).setValue(student)
+            FirebaseDB.userRef.child(student.reg_no).setValue(User(student.reg_no,student.reg_no, "student"))
             findNavController().navigateUp()
         }
     }
