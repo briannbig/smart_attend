@@ -39,6 +39,7 @@ class ClassFragment : Fragment() {
         coursesRef = FirebaseDB.courseRef
         studentsRef = FirebaseDB.studentRef
         setUpTabLayout()
+        setUpCoursesRv()
         binding.btnAddCourse.setOnClickListener {
             classViewModel.classId.value = "DICT-2018-S"
             findNavController().navigate(R.id.action_classFragment_to_editCourseFragment)
@@ -78,7 +79,6 @@ class ClassFragment : Fragment() {
         adapter.startListening()
     }
     private fun setUpStudentsRv(){
-//        binding.rvItems.adapte
         val query = studentsRef.orderByChild("enrolledClass").equalTo(classViewModel.classId.value)
         val options: FirebaseRecyclerOptions<Student> = FirebaseRecyclerOptions.Builder<Student>()
             .setQuery(query, Student::class.java).build()
