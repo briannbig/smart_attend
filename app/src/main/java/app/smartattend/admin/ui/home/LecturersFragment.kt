@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import app.smartattend.R
 import app.smartattend.adapters.LecturerAdapter
 import app.smartattend.databinding.FragmentLecturersBinding
 import app.smartattend.firebase.FirebaseDB
@@ -21,6 +23,7 @@ class LecturersFragment : Fragment() {
     ): View {
         binding = FragmentLecturersBinding.inflate(inflater, container, false)
         setUpRv()
+        binding.fabAddLecturer.setOnClickListener { findNavController().navigate(R.id.action_lecturersFragment_to_editLecturerFragment) }
         return binding.root
     }
     private fun setUpRv(){

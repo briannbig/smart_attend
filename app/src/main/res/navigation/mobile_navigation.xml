@@ -75,5 +75,14 @@
         android:id="@+id/lecturersFragment"
         android:name="app.smartattend.admin.ui.home.LecturersFragment"
         android:label="manage lecturers"
-        tools:layout="@layout/fragment_lecturers" />
+        tools:layout="@layout/fragment_lecturers" >
+        <action
+            android:id="@+id/action_lecturersFragment_to_editLecturerFragment"
+            app:destination="@id/editLecturerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editLecturerFragment"
+        android:name="app.smartattend.admin.ui.EditLecturerFragment"
+        android:label="Lecturer"
+        tools:layout="@layout/fragment_edit_lecturer" />
 </navigation>
