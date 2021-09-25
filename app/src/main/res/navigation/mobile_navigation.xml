@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_classesFragment"
             app:destination="@id/classesFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_lecturersFragment"
+            app:destination="@id/lecturersFragment" />
     </fragment>
 
     <fragment
@@ -68,4 +71,9 @@
         android:name="app.smartattend.admin.ui.EditStudentFragment"
         android:label="Student"
         tools:layout="@layout/fragment_edit_student" />
+    <fragment
+        android:id="@+id/lecturersFragment"
+        android:name="app.smartattend.admin.ui.home.LecturersFragment"
+        android:label="manage lecturers"
+        tools:layout="@layout/fragment_lecturers" />
 </navigation>

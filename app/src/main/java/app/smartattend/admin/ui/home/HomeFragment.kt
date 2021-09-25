@@ -31,6 +31,7 @@ class HomeFragment : Fragment() {
         binding.card3.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_classesFragment)
         }
+        binding.card4.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_lecturersFragment) }
 
         return binding.root
     }

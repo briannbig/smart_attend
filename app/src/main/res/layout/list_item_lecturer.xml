@@ -25,7 +25,7 @@
             app:srcCompat="@drawable/ic_outline_supervisor_account_24" />
 
         <TextView
-            android:id="@+id/textView_8"
+            android:id="@+id/tv_lec_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -33,15 +33,15 @@
             android:text="@string/sample_lec_name"
             app:layout_constraintBottom_toBottomOf="@+id/img_4"
             app:layout_constraintStart_toEndOf="@+id/img_4"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_lec_name" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/tv_lec_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextAppearance.AppCompat"
             android:text="@string/lecturers"
-            app:layout_constraintStart_toStartOf="@+id/textView_8"
+            app:layout_constraintStart_toStartOf="@+id/tv_lec_no"
             app:layout_constraintTop_toTopOf="@+id/img_4" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
