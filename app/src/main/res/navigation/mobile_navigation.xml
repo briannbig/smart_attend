@@ -11,9 +11,6 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_coursesFragment"
-            app:destination="@id/coursesFragment" />
-        <action
             android:id="@+id/action_navigation_home_to_classesFragment"
             app:destination="@id/classesFragment" />
     </fragment>
