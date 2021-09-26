@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import app.smartattend.R
 import app.smartattend.model.Course
@@ -19,7 +20,7 @@ class CourseAdapter(options : FirebaseRecyclerOptions<Course>): FirebaseRecycler
         val tvLec: TextView = itemView.findViewById(R.id.tv_course_lecturer)
         init{
             itemView.setOnClickListener{
-
+                it.findNavController().navigate(R.id.action_classFragment_to_courseReportFragment)
             }
         }
     }

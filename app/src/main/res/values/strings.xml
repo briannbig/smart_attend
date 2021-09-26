@@ -51,4 +51,8 @@
     <string name="hint_name">name</string>
     <string name="registration_number">registration number</string>
     <string name="new_lecturer">New Lecturer</string>
+    <string name="attendance_report">Attendance report</string>
+    <string name="_56">56%</string>
+    <string name="reg_no">reg no</string>
+    <string name="_0">0</string>
 </resources>

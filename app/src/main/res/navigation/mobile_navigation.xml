@@ -65,6 +65,9 @@
         <action
             android:id="@+id/action_classFragment_to_editStudentFragment"
             app:destination="@id/editStudentFragment" />
+        <action
+            android:id="@+id/action_classFragment_to_courseReportFragment"
+            app:destination="@id/courseReportFragment" />
     </fragment>
     <fragment
         android:id="@+id/editStudentFragment"
@@ -85,4 +88,9 @@
         android:name="app.smartattend.admin.ui.EditLecturerFragment"
         android:label="Lecturer"
         tools:layout="@layout/fragment_edit_lecturer" />
+    <fragment
+        android:id="@+id/courseReportFragment"
+        android:name="app.smartattend.admin.ui.notifications.CourseReportFragment"
+        android:label="course report"
+        tools:layout="@layout/fragment_course_report" />
 </navigation>

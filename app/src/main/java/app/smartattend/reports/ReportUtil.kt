@@ -2,12 +2,13 @@ package app.smartattend.reports
 
 import app.smartattend.firebase.FirebaseDB
 import app.smartattend.model.Course
+import app.smartattend.model.ReportItem
 import com.google.firebase.database.DataSnapshot
 
 class ReportUtil {
 
-    private var courseReport = mutableMapOf<String, Int>()
-    fun analyzeForSpecificCourse(course: Course): MutableMap<String, Int> {
+    private var courseReport = ArrayList<ReportItem>()
+    fun analyzeForSpecificCourse(course: Course): ArrayList<ReportItem> {
         val lessonSnapshot = FirebaseDB.lessonRef.orderByChild("course").equalTo(course.code).get()
         val studentsSnapshot = FirebaseDB.studentRef.orderByChild("classId").equalTo(course.classId).get()
         lessonSnapshot.addOnSuccessListener {
@@ -29,6 +30,6 @@ class ReportUtil {
             count ++
         }
         val avg = (sum/count) * 100
-        courseReport[reg_no] = avg
+        courseReport.add(ReportItem(reg_no, avg))
     }
 }

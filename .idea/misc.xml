@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_attendace_logo_72.xml" value="0.23020833333333332" />
+        <entry key="app/src/main/res/drawable/acrobat.xml" value="0.21822916666666667" />
         <entry key="app/src/main/res/drawable/ic_app_logo.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/activity_admin.xml" value="0.151268115942029" />
         <entry key="app/src/main/res/layout/activity_lecturer.xml" value="0.20833333333333334" />
@@ -13,6 +14,7 @@
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.13072916666666667" />
         <entry key="app/src/main/res/layout/fragment_class.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_classes.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_course_report.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_courses.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_create_lesson.xml" value="0.2140625" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.2115036231884058" />
@@ -32,6 +34,7 @@
         <entry key="app/src/main/res/layout/list_item_class.xml" value="0.2140625" />
         <entry key="app/src/main/res/layout/list_item_course.xml" value="0.2115036231884058" />
         <entry key="app/src/main/res/layout/list_item_lecturer.xml" value="0.151268115942029" />
+        <entry key="app/src/main/res/layout/list_item_report.xml" value="0.75" />
         <entry key="app/src/main/res/layout/list_item_student.xml" value="0.1671195652173913" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2140625" />
         <entry key="app/src/main/res/menu/bottom_nav_menu_admin.xml" value="0.2140625" />
