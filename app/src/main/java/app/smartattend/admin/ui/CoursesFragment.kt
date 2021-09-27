@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.smartattend.R
 import app.smartattend.adapters.ClassAdapter
@@ -19,12 +20,16 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 class CoursesFragment : Fragment() {
 
     private lateinit var binding: FragmentCoursesBinding
+//    private val args: CoursesFragmentArgs by navArgs()
+    private lateinit var classId: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCoursesBinding.inflate(inflater, container, false)
+//        classId = args.classId
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_coursesFragment_to_editCourseFragment)
         }

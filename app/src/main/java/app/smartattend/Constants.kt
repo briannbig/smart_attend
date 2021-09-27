@@ -15,4 +15,5 @@ object Constants {
     const val lesson_course_code = "LESSON_COURSE_CODE"
     const val lesson_start_time = "LESSON_START_TIME"
     const val lesson_end_time = "LESSON_END_TIME"
+    const val enrolled_class = "ENROLLED_CLASS"
 }

@@ -31,4 +31,6 @@ class AppPreferences(private val ctx: Context) {
         set(value) = preferences.edit().putLong(Constants.lesson_start_time, value).apply()
     var lessonEndTime = preferences.getLong(Constants.lesson_end_time, 0L)
         set(value) = preferences.edit().putLong(Constants.lesson_end_time, value).apply()
+    var enrolledClass = preferences.getString(Constants.enrolled_class, "")
+        set(value) = preferences.edit().putString(Constants.enrolled_class, value).apply()
 }

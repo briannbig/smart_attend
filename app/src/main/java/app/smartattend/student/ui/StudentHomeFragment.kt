@@ -30,6 +30,7 @@ class StudentHomeFragment : Fragment() {
     private lateinit var binding: FragmentStudentHomeBinding
     private var qrScanIntegrator: IntentIntegrator? =null
     private lateinit var lessonViewModel: LessonViewModel
+    private lateinit var studentViewModel: StudentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,11 +46,15 @@ class StudentHomeFragment : Fragment() {
             setCameraId(0)
         }
         lessonViewModel = ViewModelProvider(this.requireActivity()).get(LessonViewModel::class.java)
+        studentViewModel = ViewModelProvider(this).get(StudentViewModel::class.java)
         binding.card3.setOnClickListener {
             if (ProgressManager.inProgress(requireContext())) {
                 findNavController().navigate(R.id.action_navigation_student_home_to_lessonFragment)
             }
             else initiateScan()
+        }
+        binding.card2.setOnClickListener {
+//            findNavController().navigate(R.id.action_navigation_student_home_to_coursesFragment2)
         }
         return binding.root
     }

@@ -18,10 +18,22 @@
         <action
             android:id="@+id/action_navigation_student_home_to_lessonFragment"
             app:destination="@id/lessonFragment" />
+        <action
+            android:id="@+id/action_navigation_student_home_to_coursesFragment2"
+            app:destination="@id/coursesFragment2" />
     </fragment>
     <fragment
         android:id="@+id/lessonFragment"
         android:name="app.smartattend.student.ui.LessonFragment"
         android:label="@string/lesson_in_progress"
         tools:layout="@layout/fragment_lesson" />
+    <fragment
+        android:id="@+id/coursesFragment2"
+        android:name="app.smartattend.admin.ui.CoursesFragment"
+        android:label="@string/courses"
+        tools:layout="@layout/fragment_courses" >
+        <argument
+            android:name="classId"
+            app:argType="string" />
+    </fragment>
 </navigation>
