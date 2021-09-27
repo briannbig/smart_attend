@@ -41,8 +41,8 @@ class CourseReportFragment : Fragment() {
     }
 
     private fun setUpRv(){
-        val reports = ReportUtil().analyzeForSpecificCourse(courseViewModel.course.value!!)
-        val adapter = ReportAdapter(reports)
+        val reports = courseViewModel.course.value?.let { ReportUtil().analyzeForSpecificCourse(it) }
+        val adapter = reports?.let { ReportAdapter(it) }
         binding.rvReport.apply {
             layoutManager = LinearLayoutManager(requireContext())
             this.adapter = adapter

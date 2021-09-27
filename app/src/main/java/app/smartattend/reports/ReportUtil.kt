@@ -11,8 +11,8 @@ class ReportUtil {
 
     private var courseReport = ArrayList<ReportItem>()
     fun analyzeForSpecificCourse(course: Course): ArrayList<ReportItem> {
-        val lessonSnapshot = FirebaseDB.lessonRef.orderByChild("attendees/course").equalTo(course.code)
-        val studentsSnapshot = FirebaseDB.studentRef.orderByChild("classId").equalTo(course.classId)
+        val lessonSnapshot = FirebaseDB.lessonRef.orderByChild("course").equalTo(course.code)
+        val studentsSnapshot = FirebaseDB.studentRef.orderByChild("enrolledClass").equalTo(course.classId)
         lessonSnapshot.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){

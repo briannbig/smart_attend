@@ -22,6 +22,7 @@ public class LessonRepo {
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
     public Lesson getCurrentLesson() {
+        setLesson();
         return lesson;
     }
     public void setLesson(){

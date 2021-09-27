@@ -32,7 +32,7 @@ class CreateLessonFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCreateLessonBinding.inflate(inflater, container, false)
-        lessonViewModel = ViewModelProvider(this).get(LessonViewModel::class.java)
+        lessonViewModel = ViewModelProvider(this.requireActivity()).get(LessonViewModel::class.java)
         binding.button3.setOnClickListener {
             TimePickerFragment(binding.tvEndTime, lessonViewModel).show(requireActivity().supportFragmentManager, "time picker")
         }
@@ -49,6 +49,7 @@ class CreateLessonFragment : Fragment() {
             val lesson = Lesson(course.code, Calendar.getInstance().timeInMillis,
              lessonViewModel.endTime.value)
             lessonViewModel.apply {
+
                 courseCode.value = course.code
                 startTime.value = lesson.startTime
                 endTime.value = lessonViewModel.endTime.value

@@ -18,6 +18,7 @@ import app.smartattend.firebase.FirebaseDB
 import app.smartattend.model.Attendee
 import app.smartattend.model.Course
 import app.smartattend.model.Lesson
+import app.smartattend.preferences.AppPreferences
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
@@ -44,11 +45,15 @@ class LessonFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLessonBinding.inflate(inflater, container, false)
-        lessonViewModel = ViewModelProvider(this).get(LessonViewModel::class.java)
+        lessonViewModel = ViewModelProvider(this.requireActivity()).get(LessonViewModel::class.java)
         btmSheet = binding.root.findViewById(R.id.layout_bottomSheetBehaviorShare)
         ivQRCode = binding.root.findViewById(R.id.ivDisplayQR)
+        val appPreferences = AppPreferences(requireContext())
+        val startTime = appPreferences.lessonStartTime
+        val endTime = appPreferences.lessonEndTime
+        val code = appPreferences.lessonCourseCode
+        lesson = Lesson(code, startTime, endTime)
 
-        lesson = lessonViewModel.getLesson()!!
         lessonRef = FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString())
 
         val bottomSheetBehavior = BottomSheetBehavior.from(btmSheet)
