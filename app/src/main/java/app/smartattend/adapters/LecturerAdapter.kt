@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import app.smartattend.R
+import app.smartattend.admin.ui.home.LecturersFragmentDirections
 import app.smartattend.model.Lecturer
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -17,7 +19,8 @@ class LecturerAdapter(options : FirebaseRecyclerOptions<Lecturer>): FirebaseRecy
         val tvName: TextView = itemView.findViewById(R.id.tv_lec_name)
         init{
             itemView.setOnClickListener{
-
+                val action = LecturersFragmentDirections.actionLecturersFragmentToEditLecturerFragment(tvRegNo.text.toString())
+                it.findNavController().navigate(action)
             }
         }
     }

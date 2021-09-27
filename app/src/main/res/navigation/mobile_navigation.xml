@@ -87,7 +87,12 @@
         android:id="@+id/editLecturerFragment"
         android:name="app.smartattend.admin.ui.EditLecturerFragment"
         android:label="Lecturer"
-        tools:layout="@layout/fragment_edit_lecturer" />
+        tools:layout="@layout/fragment_edit_lecturer" >
+        <argument
+            android:name="lecRegNo"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/courseReportFragment"
         android:name="app.smartattend.admin.ui.notifications.CourseReportFragment"
