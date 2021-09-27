@@ -100,5 +100,9 @@
         android:id="@+id/courseReportFragment"
         android:name="app.smartattend.admin.ui.notifications.CourseReportFragment"
         android:label="course report"
-        tools:layout="@layout/fragment_course_report" />
+        tools:layout="@layout/fragment_course_report" >
+        <argument
+            android:name="courseId"
+            app:argType="string" />
+    </fragment>
 </navigation>
