@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_navigation_lecturer_home_to_createLessonFragment"
             app:destination="@id/navigation_create_lesson_fragment" />
+        <action
+            android:id="@+id/action_navigation_lecturer_home_to_coursesFragment3"
+            app:destination="@id/coursesFragment3" />
     </fragment>
     <fragment
         android:id="@+id/navigation_notifications"
@@ -33,5 +36,10 @@
         android:name="app.smartattend.lecturer.ui.CreateLessonFragment"
         android:label="@string/create_session"
         tools:layout="@layout/fragment_create_lesson" />
+    <fragment
+        android:id="@+id/coursesFragment3"
+        android:name="app.smartattend.admin.ui.CoursesFragment"
+        android:label="@string/courses"
+        tools:layout="@layout/fragment_courses" />
 
 </navigation>
