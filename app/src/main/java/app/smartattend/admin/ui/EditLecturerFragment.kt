@@ -59,7 +59,7 @@ class EditLecturerFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+//                TODO("Not yet implemented")
             }
 
         })

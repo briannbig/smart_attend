@@ -9,5 +9,6 @@ class ClassViewModel: ViewModel() {
     var classId = MutableLiveData<String>()
     fun updateClass(classs: Class) {
         this.classs.value = classs
+        classId.value = this.classs.value!!.id
     }
 }

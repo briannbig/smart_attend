@@ -68,6 +68,9 @@
         <action
             android:id="@+id/action_classFragment_to_courseReportFragment"
             app:destination="@id/courseReportFragment" />
+        <argument
+            android:name="classId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/editStudentFragment"
