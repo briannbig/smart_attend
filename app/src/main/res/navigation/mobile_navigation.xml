@@ -110,7 +110,8 @@
         <argument
             android:name="lecRegNo"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="null" />
     </fragment>
     <fragment
         android:id="@+id/courseReportFragment"
