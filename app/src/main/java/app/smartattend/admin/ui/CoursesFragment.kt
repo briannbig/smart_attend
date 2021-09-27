@@ -30,9 +30,6 @@ class CoursesFragment : Fragment() {
     ): View? {
         binding = FragmentCoursesBinding.inflate(inflater, container, false)
 //        classId = args.classId
-        binding.floatingActionButton.setOnClickListener {
-            findNavController().navigate(R.id.action_coursesFragment_to_editCourseFragment)
-        }
         setUpRv()
         return binding.root
     }
