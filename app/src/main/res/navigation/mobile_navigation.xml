@@ -12,10 +12,14 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_classesFragment"
-            app:destination="@id/classesFragment" />
+            app:destination="@id/classesFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_navigation_home_to_lecturersFragment"
-            app:destination="@id/lecturersFragment" />
+            app:destination="@id/lecturersFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
 
     <fragment
@@ -44,10 +48,14 @@
         tools:layout="@layout/fragment_classes" >
         <action
             android:id="@+id/action_classesFragment_to_editClassFragment"
-            app:destination="@id/editClassFragment" />
+            app:destination="@id/editClassFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_classesFragment_to_classFragment"
-            app:destination="@id/classFragment" />
+            app:destination="@id/classFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/editClassFragment"
@@ -61,13 +69,19 @@
         tools:layout="@layout/fragment_class" >
         <action
             android:id="@+id/action_classFragment_to_editCourseFragment"
-            app:destination="@id/editCourseFragment" />
+            app:destination="@id/editCourseFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_classFragment_to_editStudentFragment"
-            app:destination="@id/editStudentFragment" />
+            app:destination="@id/editStudentFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_classFragment_to_courseReportFragment"
-            app:destination="@id/courseReportFragment" />
+            app:destination="@id/courseReportFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
         <argument
             android:name="classId"
             app:argType="string" />
@@ -84,7 +98,9 @@
         tools:layout="@layout/fragment_lecturers" >
         <action
             android:id="@+id/action_lecturersFragment_to_editLecturerFragment"
-            app:destination="@id/editLecturerFragment" />
+            app:destination="@id/editLecturerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/editLecturerFragment"
