@@ -12,7 +12,6 @@ import app.smartattend.adapters.ReportAdapter
 import app.smartattend.commons.CourseViewModel
 import app.smartattend.databinding.FragmentCourseReportBinding
 import app.smartattend.firebase.FirebaseDB
-import app.smartattend.model.Class
 import app.smartattend.model.Course
 import app.smartattend.reports.ReportUtil
 import com.google.firebase.database.DataSnapshot
@@ -23,26 +22,20 @@ import com.google.firebase.database.ValueEventListener
 class CourseReportFragment : Fragment() {
     private val args : CourseReportFragmentArgs by navArgs()
     private lateinit var binding: FragmentCourseReportBinding
-    private lateinit var courseViewModel: CourseViewModel
+    private lateinit var course: Course
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCourseReportBinding.inflate(inflater, container, false)
-        courseViewModel = ViewModelProvider(requireActivity()).get(CourseViewModel::class.java)
         initData(args.courseId)
-        courseViewModel.course.observe(viewLifecycleOwner,{
-            binding.tvCourseCode.text = it.code
-            binding.tvCourseTitle.text = it.title
-        })
 
-        setUpRv()
         return binding.root
     }
 
-    private fun setUpRv(){
-        val reports = courseViewModel.course.value?.let { ReportUtil().analyzeForSpecificCourse(it) }
-        val adapter = reports?.let { ReportAdapter(it) }
+    private fun setUpRv(course: Course){
+        val reports = ReportUtil().analyzeForSpecificCourse(course)
+        val adapter = ReportAdapter(reports)
         binding.rvReport.apply {
             layoutManager = LinearLayoutManager(requireContext())
             this.adapter = adapter
@@ -57,8 +50,12 @@ class CourseReportFragment : Fragment() {
                     val title: String = snapshot.child(courseCode).child("title").value.toString()
                     val lecturer: String = snapshot.child(courseCode).child("lecturer").value.toString()
                     val classId: String = snapshot.child(courseCode).child("classId").value.toString()
-                    val course = Course(code, title, lecturer, classId)
-                    courseViewModel.course.value = course
+                    course = Course(code, title, lecturer, classId)
+                    binding.apply {
+                        tvCourseCode.text = course.code
+                        tvCourseTitle.text= course.title
+                    }
+                    setUpRv(course)
                 }
             }
 

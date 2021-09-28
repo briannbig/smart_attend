@@ -7,7 +7,8 @@ import app.smartattend.model.Course
 class CourseViewModel: ViewModel() {
     var course = MutableLiveData<Course>()
     var courseCode = MutableLiveData<String>()
-    fun updateClass(course: Course) {
+    fun updateCourse(course: Course) {
         this.course.value = course
+        courseCode.value = course.code
     }
 }
