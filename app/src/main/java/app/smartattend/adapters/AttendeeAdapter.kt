@@ -29,7 +29,7 @@ class AttendeeAdapter(options: FirebaseRecyclerOptions<Attendee>) : FirebaseRecy
     override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Attendee) {
         holder.apply {
             tvRegNo.text = model.reg_No
-            tvCheckIn.text = CalenderUtil.longToTime(model.time_In)
+//            tvCheckIn.text = CalenderUtil.longToTime(model.time_In)
         }
     }
 }

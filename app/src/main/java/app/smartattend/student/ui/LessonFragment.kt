@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.smartattend.R
 import app.smartattend.adapters.AttendeeAdapter
 import app.smartattend.adapters.CourseAdapter
+import app.smartattend.commons.CalenderUtil
 import app.smartattend.commons.LessonViewModel
 import app.smartattend.commons.ProgressManager
 import app.smartattend.databinding.FragmentLessonBinding
@@ -55,6 +56,7 @@ class LessonFragment : Fragment() {
         lesson = Lesson(code, startTime, endTime)
 
         lessonRef = FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString())
+        fetchLesson()
 
         val bottomSheetBehavior = BottomSheetBehavior.from(btmSheet)
         binding.fabShareCode.setOnClickListener {
@@ -79,27 +81,16 @@ class LessonFragment : Fragment() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
             }
         })
-
-        lessonViewModel.lesson.observe(this.requireActivity(), {
-            binding.tvCourseCode.text = it.course
-        })
-
+        binding.apply {
+            val appPrefs = AppPreferences(requireContext())
+            tvCourseCode.text = lesson.course
+            tvLecName.text = CalenderUtil.longToTime(lesson.endTime)
+        }
         setUpRv()
         return binding.root
     }
     private fun setQRImage() {
-            lessonRef.addValueEventListener(object: ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()){
-                        lesson.apply {
-                            course = snapshot.child("course").value.toString()
-                            startTime = snapshot.child("startTime").value as Long?
-                            endTime = snapshot.child("endTime").value as Long?
-                        }
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) {}
-            })
+
             val url = Gson().toJson(lesson)
             try {
                 val barcodeEncoder = BarcodeEncoder()
@@ -118,6 +109,20 @@ class LessonFragment : Fragment() {
             this.adapter = adapter
         }
         adapter.startListening()
+    }
+    fun fetchLesson(){
+        lessonRef.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    lesson.apply {
+                        course = snapshot.child("course").value.toString()
+                        startTime = snapshot.child("startTime").value as Long?
+                        endTime = snapshot.child("endTime").value as Long?
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 
     fun snack(message: String, length: Int = Snackbar.LENGTH_SHORT){
