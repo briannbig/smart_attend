@@ -40,6 +40,7 @@ class LessonFragment : Fragment() {
     private lateinit var ivQRCode: ImageView
     private lateinit var lesson: Lesson
     private lateinit var lessonRef: DatabaseReference
+    private lateinit var appPreferences: AppPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +50,7 @@ class LessonFragment : Fragment() {
         lessonViewModel = ViewModelProvider(this.requireActivity()).get(LessonViewModel::class.java)
         btmSheet = binding.root.findViewById(R.id.layout_bottomSheetBehaviorShare)
         ivQRCode = binding.root.findViewById(R.id.ivDisplayQR)
-        val appPreferences = AppPreferences(requireContext())
+        appPreferences = AppPreferences(requireContext())
         val startTime = appPreferences.lessonStartTime
         val endTime = appPreferences.lessonEndTime
         val code = appPreferences.lessonCourseCode
@@ -90,8 +91,10 @@ class LessonFragment : Fragment() {
         return binding.root
     }
     private fun setQRImage() {
-
-            val url = Gson().toJson(lesson)
+        val less = Lesson(
+            appPreferences.lessonCourseCode, appPreferences.lessonStartTime, appPreferences.lessonEndTime
+        )
+            val url = Gson().toJson(less)
             try {
                 val barcodeEncoder = BarcodeEncoder()
                 val bitmap = barcodeEncoder.encodeBitmap(url, BarcodeFormat.QR_CODE, 400, 400)
