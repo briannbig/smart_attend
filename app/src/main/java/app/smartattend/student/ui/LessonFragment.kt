@@ -84,7 +84,7 @@ class LessonFragment : Fragment() {
             binding.tvCourseCode.text = it.course
         })
 
-//        setUpRv()
+        setUpRv()
         return binding.root
     }
     private fun setQRImage() {

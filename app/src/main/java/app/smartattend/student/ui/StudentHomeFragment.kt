@@ -83,8 +83,8 @@ class StudentHomeFragment : Fragment() {
                         val attendanceRef =
                             FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString())
                         attendanceRef.apply {
-                            child("reg_No").setValue(AppPreferences(requireContext()).userReg)
-                            child("time_In").setValue(Calendar.getInstance().timeInMillis)
+                            child(AppPreferences(requireContext()).userReg!!).child("reg_No").setValue(AppPreferences(requireContext()).userReg)
+                            child(AppPreferences(requireContext()).userReg!!).child("time_In").setValue(Calendar.getInstance().timeInMillis)
                         }
                         lessonViewModel.updateLesson(lesson)
                         AppPreferences(requireContext()).apply {

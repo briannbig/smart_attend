@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.smartattend.adapters.ReportAdapter
+import app.smartattend.admin.ui.home.ReportViewModel
 import app.smartattend.commons.CourseViewModel
 import app.smartattend.databinding.FragmentCourseReportBinding
 import app.smartattend.firebase.FirebaseDB
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
@@ -31,21 +33,21 @@ class CourseReportFragment : Fragment() {
     private val args : CourseReportFragmentArgs by navArgs()
     private lateinit var binding: FragmentCourseReportBinding
     private lateinit var course: Course
-    private lateinit var callBackImpl: CallBackImpl
+    private lateinit var adapter: ReportAdapter
+    private lateinit var viewModel: ReportViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCourseReportBinding.inflate(inflater, container, false)
-        callBackImpl = CallBackImpl()
-        initData(args.courseId)
-//        setUpRv(course)
+        viewModel = ViewModelProvider(this).get(ReportViewModel::class.java)
+        if (viewModel.course.value == null)
+            CoroutineScope(Dispatchers.Main).launch { initData(args.courseId)}
 
         return binding.root
     }
 
     private fun setUpRv(courseReports: ArrayList<ReportItem>){
-//            val reports = ReportGen().courseReport
             Log.d("reports", "$courseReports")
             val adapter = ReportAdapter(courseReports)
             binding.rvReport.apply {
@@ -54,7 +56,7 @@ class CourseReportFragment : Fragment() {
                 this.adapter = adapter
             }
     }
-    private fun initData(courseCode: String){
+    private suspend fun initData(courseCode: String){
         val query = FirebaseDB.courseRef.orderByChild("code").equalTo(courseCode)
         query.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -64,20 +66,25 @@ class CourseReportFragment : Fragment() {
                     val lecturer: String = snapshot.child(courseCode).child("lecturer").value.toString()
                     val classId: String = snapshot.child(courseCode).child("classId").value.toString()
                     course = Course(code, title, lecturer, classId)
+                    viewModel.course.value = course
                     binding.apply {
                         tvCourseCode.text = course.code
                         tvCourseTitle.text= course.title
                     }
-                    ReportGen().analyzeForSpecificCourse(callBackImpl,course)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val reports = viewModel.fetch()
+
+                        if (reports != null) {
+                            setUpRv(reports)
+                        }
+                    }
                 }
-                setUpRv(callBackImpl.onComplete())
+
             }
 
             override fun onCancelled(error: DatabaseError) {
 //                TODO("Not yet implemented")
             }
-
         })
     }
-
 }

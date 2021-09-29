@@ -1,31 +1,31 @@
 package app.smartattend.model;
 
 public class Attendee {
-    private String reg_no;
-    private Long check_in;
+    private String reg_No;
+    private Long time_In;
 
     public Attendee() {
     }
 
-    public Attendee(String reg_no, Long check_in) {
-        this.reg_no = reg_no;
-        this.check_in = check_in;
+    public Attendee(String reg_No, Long time_In) {
+        this.reg_No = reg_No;
+        this.time_In = time_In;
     }
 
-    public String getReg_no() {
-        return reg_no;
+    public String getReg_No() {
+        return reg_No;
     }
 
-    public void setReg_no(String reg_no) {
-        this.reg_no = reg_no;
+    public void setReg_No(String reg_No) {
+        this.reg_No = reg_No;
     }
 
-    public Long getCheck_in() {
-        return check_in;
+    public Long getTime_In() {
+        return time_In;
     }
 
-    public void setCheck_in(Long check_in) {
-        this.check_in = check_in;
+    public void setTime_In(Long time_In) {
+        this.time_In = time_In;
     }
 
 }
