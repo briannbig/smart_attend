@@ -55,7 +55,7 @@ class LessonFragment : Fragment() {
         val code = appPreferences.lessonCourseCode
         lesson = Lesson(code, startTime, endTime)
 
-        lessonRef = FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString())
+        lessonRef = FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString()).child("attendees")
         fetchLesson()
 
         val bottomSheetBehavior = BottomSheetBehavior.from(btmSheet)
@@ -100,7 +100,8 @@ class LessonFragment : Fragment() {
 
     }
     private fun setUpRv(){
-        val query = FirebaseDB.lessonRef.orderByChild("course").equalTo(AppPreferences(requireContext()).lessonCourseCode)
+        val query = lessonRef
+//        val query = FirebaseDB.lessonRef.orderByChild("course").equalTo(AppPreferences(requireContext()).lessonCourseCode)
         val options: FirebaseRecyclerOptions<Attendee> = FirebaseRecyclerOptions.Builder<Attendee>()
             .setQuery(query, Attendee::class.java).build()
         val adapter = AttendeeAdapter(options)

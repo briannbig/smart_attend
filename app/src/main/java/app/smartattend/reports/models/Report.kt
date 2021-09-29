@@ -45,11 +45,12 @@ object Report {
             val les = Lesson()
             val arrayList = ArrayList<Attendee>()
             for (i in snap.children){
+
                 val path = i.child("attendees")
-//                for (j in path.children){
+                for (j in path.children){
                     arrayList.add(Attendee(i.child(i.key!!).child("reg_No").value.toString(),
                         i.child(i.key!!).child("time_In").value.toString()))
-//                }
+                }
                 les.attendees = arrayList
             }
             lessons.add(les)
