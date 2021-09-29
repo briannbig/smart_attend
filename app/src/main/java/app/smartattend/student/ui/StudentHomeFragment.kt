@@ -86,13 +86,19 @@ class StudentHomeFragment : Fragment() {
                             child(AppPreferences(requireContext()).userReg!!).child("reg_No").setValue(AppPreferences(requireContext()).userReg)
                             child(AppPreferences(requireContext()).userReg!!).child("time_In").setValue(Calendar.getInstance().timeInMillis)
                         }
+                        lessonViewModel.apply {
+                            courseCode.value = lesson.course
+                            startTime.value = lesson.startTime
+                            endTime.value = lessonViewModel.endTime.value
+                        }
                         lessonViewModel.updateLesson(lesson)
                         AppPreferences(requireContext()).apply {
                             lessonCourseCode = lesson.course
                             lessonStartTime = lesson.startTime
                             lessonEndTime = lesson.endTime
                         }
-                    ProgressManager.startProgress(requireContext(), lesson.endTime)
+                        ProgressManager.startProgress(requireContext(), lesson.endTime)
+                        snack("success")
                     }
                     else
                         snack("Not a member of this class!!")
