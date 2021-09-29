@@ -5,6 +5,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity
 public class Lesson {
     @PrimaryKey @NonNull private String course;
@@ -18,6 +22,15 @@ public class Lesson {
     }
 
     public Lesson() {
+        ArrayList<String> list = new ArrayList<String>();
+        Map<String, Integer> hm = new HashMap<String, Integer>();
+        for (String i : list) {
+            Integer j = hm.get(i);
+            hm.put(i, (j ==null)? 1 : j + 1);
+        }
+        for (Map.Entry<String, Integer> val : hm.entrySet()){
+
+        }
     }
 
     public String getCourse() {

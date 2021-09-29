@@ -84,7 +84,7 @@ class LessonFragment : Fragment() {
             binding.tvCourseCode.text = it.course
         })
 
-        setUpRv()
+//        setUpRv()
         return binding.root
     }
     private fun setQRImage() {
@@ -109,7 +109,7 @@ class LessonFragment : Fragment() {
 
     }
     private fun setUpRv(){
-        val query = lessonRef
+        val query = FirebaseDB.lessonRef.orderByChild("course").equalTo(AppPreferences(requireContext()).lessonCourseCode)
         val options: FirebaseRecyclerOptions<Attendee> = FirebaseRecyclerOptions.Builder<Attendee>()
             .setQuery(query, Attendee::class.java).build()
         val adapter = AttendeeAdapter(options)
