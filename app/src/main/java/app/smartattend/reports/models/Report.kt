@@ -43,6 +43,7 @@ object Report {
     private fun prepareLesson(snapshot: DataSnapshot){
         for (snap in snapshot.children) {
             val les = Lesson()
+//            var count = snap.childrenCount
             val arrayList = ArrayList<Attendee>()
             for (i in snap.children){
 

@@ -12,6 +12,7 @@ object FirebaseDB {
     val studentRef = database.getReference("Students")
     val userRef = database.getReference("Users")
     val classRef = database.getReference("Classes")
+    val attendanceRef= database.getReference("attendees")
 
     fun getAttendanceRef(courseCode: String, startTime: String): DatabaseReference {
         return lessonRef.child("$courseCode-$startTime/attendees")
