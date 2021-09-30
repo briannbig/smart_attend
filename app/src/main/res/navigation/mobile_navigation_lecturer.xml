@@ -40,6 +40,21 @@
         android:id="@+id/coursesFragment3"
         android:name="app.smartattend.admin.ui.CoursesFragment"
         android:label="@string/courses"
-        tools:layout="@layout/fragment_courses" />
+        tools:layout="@layout/fragment_courses" >
+        <action
+            android:id="@+id/action_coursesFragment3_to_courseReportFragment2"
+            app:destination="@id/courseReportFragment2"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/courseReportFragment2"
+        android:name="app.smartattend.admin.ui.notifications.CourseReportFragment"
+        android:label="fragment_course_report"
+        tools:layout="@layout/fragment_course_report" >
+        <argument
+            android:name="courseId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

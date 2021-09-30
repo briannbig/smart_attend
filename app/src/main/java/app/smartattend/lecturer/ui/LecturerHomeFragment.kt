@@ -21,7 +21,7 @@ class LecturerHomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLecturerHomeBinding.inflate(inflater, container, false)
         binding.card2.setOnClickListener {
-//            findNavController().navigate(R.id.action_navigation_lecturer_home_to_coursesFragment3)
+            findNavController().navigate(R.id.action_navigation_lecturer_home_to_coursesFragment3)
         }
         binding.card3.setOnClickListener {
             if (ProgressManager.inProgress(requireContext()))
