@@ -14,6 +14,7 @@ import app.smartattend.commons.LessonViewModel
 import app.smartattend.commons.ProgressManager
 import app.smartattend.databinding.FragmentStudentHomeBinding
 import app.smartattend.firebase.FirebaseDB
+import app.smartattend.model.Attendance
 import app.smartattend.model.Lesson
 import app.smartattend.preferences.AppPreferences
 import com.google.android.material.snackbar.Snackbar
@@ -21,7 +22,6 @@ import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.zxing.integration.android.IntentIntegrator
 import java.util.*
-import kotlin.math.log
 
 
 class StudentHomeFragment : Fragment() {
@@ -86,6 +86,13 @@ class StudentHomeFragment : Fragment() {
                             child(AppPreferences(requireContext()).userReg!!).child("reg_No").setValue(AppPreferences(requireContext()).userReg)
                             child(AppPreferences(requireContext()).userReg!!).child("time_In").setValue(Calendar.getInstance().timeInMillis)
                         }
+
+                        val attendeesRef = FirebaseDB.attendanceRef
+                        attendeesRef.apply {
+                            push().setValue(Attendance(AppPreferences(requireContext()).userReg,
+                                lesson.course))
+                        }
+
                         lessonViewModel.apply {
                             courseCode.value = lesson.course
                             startTime.value = lesson.startTime
