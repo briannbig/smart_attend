@@ -8,24 +8,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.smartattend.adapters.ReportAdapter
 import app.smartattend.admin.ui.home.ReportViewModel
-import app.smartattend.commons.CourseViewModel
 import app.smartattend.databinding.FragmentCourseReportBinding
 import app.smartattend.firebase.FirebaseDB
 import app.smartattend.model.Course
 import app.smartattend.model.ReportItem
-import app.smartattend.reports.CallBackImpl
-import app.smartattend.reports.ReportGen
-import app.smartattend.reports.ReportUtil
+import app.smartattend.reports.models.Report
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
@@ -35,6 +30,12 @@ class CourseReportFragment : Fragment() {
     private lateinit var course: Course
     private lateinit var adapter: ReportAdapter
     private lateinit var viewModel: ReportViewModel
+    private var reportItems = ArrayList<ReportItem>()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.rvReport.layoutManager = LinearLayoutManager(requireContext())
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +44,10 @@ class CourseReportFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ReportViewModel::class.java)
         if (viewModel.course.value == null)
             CoroutineScope(Dispatchers.Main).launch { initData(args.courseId)}
-
+        generateReport()
+        binding.btnExportReport.setOnClickListener {
+//            setUpRv(reportItems)
+        }
         return binding.root
     }
 
@@ -51,8 +55,7 @@ class CourseReportFragment : Fragment() {
             Log.d("reports", "$courseReports")
             val adapter = ReportAdapter(courseReports)
             binding.rvReport.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                setHasFixedSize(true)
+//                layoutManager = LinearLayoutManager(requireContext())
                 this.adapter = adapter
             }
     }
@@ -71,20 +74,76 @@ class CourseReportFragment : Fragment() {
                         tvCourseCode.text = course.code
                         tvCourseTitle.text= course.title
                     }
-                    CoroutineScope(Dispatchers.Main).launch {
-                        val reports = viewModel.fetch()
-
-                        if (reports != null) {
-                            setUpRv(reports)
-                        }
-                    }
+//                    generateReport()
                 }
 
             }
 
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+    private fun generateReport(){
+        var lessonCount = 0
+        val regPool = ArrayList<String>()
+        val lessonQuery = FirebaseDB.lessonRef.orderByChild("courseCode").equalTo(args.courseId)
+        lessonQuery.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                   lessonCount = snapshot.childrenCount.toInt()
+                    val attendeesQuery = FirebaseDB.attendanceRef.orderByChild("course").equalTo(args.courseId)
+                    attendeesQuery.addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if(snapshot.exists()){
+                                for (snap in snapshot.children){
+                                    val regNo = snap.child("reg_No").value.toString()
+                                    Log.d("reg--------->", regNo)
+                                    regPool.add(regNo)
+                                }
+                                countFrequencies(regPool, lessonCount)
+                                setUpRv(reportItems)
+                            }
+                        }
+                        override fun onCancelled(error: DatabaseError) {
+                        }
+                    })
+                }
+            }
             override fun onCancelled(error: DatabaseError) {
-//                TODO("Not yet implemented")
+
             }
         })
+//        val attendeesQuery = FirebaseDB.attendanceRef.orderByChild("course").equalTo(args.courseId)
+//        attendeesQuery.addValueEventListener(object : ValueEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if(snapshot.exists()){
+//                    for (snap in snapshot.children){
+//                        val regNo = snap.child("reg_No").value.toString()
+//                        Log.d("reg--------->", regNo)
+//                        regPool.add(regNo)
+//                    }
+//                    countFrequencies(regPool, lessonCount)
+//                    setUpRv(reportItems)
+//                }
+//            }
+//            override fun onCancelled(error: DatabaseError) {
+//            }
+//        })
+    }
+    private fun countFrequencies(regPool: ArrayList<String>, lessCount: Int) {
+        val hm = HashMap<String, Double>()
+
+        for (i in regPool) {
+            val j = hm[i]
+            hm[i] = (if (j == null) 1.0 else j + 1.0)
+        }
+        for ((key, value) in hm) {
+            analyzeStudPercentage(lessCount,value, key)
+        }
+
+    }
+    private fun analyzeStudPercentage(count: Int, sum: Double, reg_no: String){
+        val avg: Double = (sum/count) * 100
+        reportItems.add(ReportItem(reg_no, avg))
+//        adapter.notifyDataSetChanged()
     }
 }
