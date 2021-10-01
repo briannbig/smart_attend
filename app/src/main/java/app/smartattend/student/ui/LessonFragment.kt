@@ -39,6 +39,11 @@ class LessonFragment : Fragment() {
     private lateinit var lessonRef: DatabaseReference
     private lateinit var appPreferences: AppPreferences
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.rvAttendees.layoutManager = LinearLayoutManager(requireContext())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -106,7 +111,7 @@ class LessonFragment : Fragment() {
             .setQuery(query, Attendee::class.java).build()
         val adapter = AttendeeAdapter(options)
         binding.rvAttendees.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+//            layoutManager = LinearLayoutManager(requireContext())
             this.adapter = adapter
         }
         adapter.startListening()
