@@ -44,6 +44,6 @@ class ReportUtil {
             count ++
         }
         val avg = (sum/count) * 100
-        courseReport.add(ReportItem(reg_no, avg))
+//        courseReport.add(ReportItem(reg_no, avg))
     }
 }

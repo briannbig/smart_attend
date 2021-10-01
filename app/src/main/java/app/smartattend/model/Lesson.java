@@ -11,12 +11,12 @@ import java.util.Map;
 
 @Entity
 public class Lesson {
-    @PrimaryKey @NonNull private String course;
+    @PrimaryKey @NonNull private String courseCode;
     @ColumnInfo private Long startTime;
     @ColumnInfo private Long endTime;
 
-    public Lesson(String course, Long startTime, Long endTime) {
-        this.course = course;
+    public Lesson(String courseCode, Long startTime, Long endTime) {
+        this.courseCode = courseCode;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -33,12 +33,12 @@ public class Lesson {
         }
     }
 
-    public String getCourse() {
-        return course;
+    public String getCourseCode() {
+        return courseCode;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 
     public Long getStartTime() {

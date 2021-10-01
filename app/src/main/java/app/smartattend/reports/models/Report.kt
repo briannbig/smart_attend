@@ -38,7 +38,7 @@ object Report {
     }
     private fun analyzeStudPercentage(count: Int, sum: Int, reg_no: String){
         val avg = (count/sum) * 100
-        reportItems.add(ReportItem(reg_no, avg))
+//        reportItems.add(ReportItem(reg_no, avg))
     }
     private fun prepareLesson(snapshot: DataSnapshot){
         for (snap in snapshot.children) {

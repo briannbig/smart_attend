@@ -79,9 +79,9 @@ class StudentHomeFragment : Fragment() {
             if (Gson().fromJson(qrCodeContent, Lesson::class.java) != null) {
                 val lesson: Lesson = Gson().fromJson(qrCodeContent, Lesson::class.java)
                 if (inTime(lesson.startTime, lesson.endTime)) {
-                    if (belongsToClass(lesson.course)){
+                    if (belongsToClass(lesson.courseCode)){
                         val attendanceRef =
-                            FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString()).child("attendees")
+                            FirebaseDB.getAttendanceRef(lesson.courseCode, lesson.startTime.toString()).child("attendees")
                         attendanceRef.apply {
                             child(AppPreferences(requireContext()).userReg!!).child("reg_No").setValue(AppPreferences(requireContext()).userReg)
                             child(AppPreferences(requireContext()).userReg!!).child("time_In").setValue(Calendar.getInstance().timeInMillis)
@@ -90,17 +90,18 @@ class StudentHomeFragment : Fragment() {
                         val attendeesRef = FirebaseDB.attendanceRef
                         attendeesRef.apply {
                             push().setValue(Attendance(AppPreferences(requireContext()).userReg,
-                                lesson.course))
+                                lesson.courseCode
+                            ))
                         }
 
                         lessonViewModel.apply {
-                            courseCode.value = lesson.course
+                            courseCode.value = lesson.courseCode
                             startTime.value = lesson.startTime
                             endTime.value = lessonViewModel.endTime.value
                         }
                         lessonViewModel.updateLesson(lesson)
                         AppPreferences(requireContext()).apply {
-                            lessonCourseCode = lesson.course
+                            lessonCourseCode = lesson.courseCode
                             lessonStartTime = lesson.startTime
                             lessonEndTime = lesson.endTime
                         }

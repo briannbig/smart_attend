@@ -31,6 +31,11 @@ class CourseReportFragment : Fragment() {
     private lateinit var adapter: ReportAdapter
     private lateinit var viewModel: ReportViewModel
     private var reportItems = ArrayList<ReportItem>()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.rvReport.layoutManager = LinearLayoutManager(requireContext())
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,7 +55,7 @@ class CourseReportFragment : Fragment() {
             Log.d("reports", "$courseReports")
             val adapter = ReportAdapter(courseReports)
             binding.rvReport.apply {
-                layoutManager = LinearLayoutManager(requireContext())
+//                layoutManager = LinearLayoutManager(requireContext())
                 this.adapter = adapter
             }
     }
@@ -80,48 +85,64 @@ class CourseReportFragment : Fragment() {
     private fun generateReport(){
         var lessonCount = 0
         val regPool = ArrayList<String>()
-        val lessonQuery = FirebaseDB.lessonRef.orderByChild("course").equalTo(args.courseId)
+        val lessonQuery = FirebaseDB.lessonRef.orderByChild("courseCode").equalTo(args.courseId)
         lessonQuery.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                    lessonCount = snapshot.childrenCount.toInt()
+                    val attendeesQuery = FirebaseDB.attendanceRef.orderByChild("course").equalTo(args.courseId)
+                    attendeesQuery.addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if(snapshot.exists()){
+                                for (snap in snapshot.children){
+                                    val regNo = snap.child("reg_No").value.toString()
+                                    Log.d("reg--------->", regNo)
+                                    regPool.add(regNo)
+                                }
+                                countFrequencies(regPool, lessonCount)
+                                setUpRv(reportItems)
+                            }
+                        }
+                        override fun onCancelled(error: DatabaseError) {
+                        }
+                    })
                 }
             }
             override fun onCancelled(error: DatabaseError) {
 
             }
         })
-        val attendeesQuery = FirebaseDB.attendanceRef.orderByChild("course").equalTo(args.courseId)
-        attendeesQuery.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    for (snap in snapshot.children){
-                        val regNo = snap.child("reg_No").value.toString()
-                        Log.d("reg--------->", regNo)
-                        regPool.add(regNo)
-                    }
-                    countFrequencies(regPool, lessonCount)
-                    setUpRv(reportItems)
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
+//        val attendeesQuery = FirebaseDB.attendanceRef.orderByChild("course").equalTo(args.courseId)
+//        attendeesQuery.addValueEventListener(object : ValueEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if(snapshot.exists()){
+//                    for (snap in snapshot.children){
+//                        val regNo = snap.child("reg_No").value.toString()
+//                        Log.d("reg--------->", regNo)
+//                        regPool.add(regNo)
+//                    }
+//                    countFrequencies(regPool, lessonCount)
+//                    setUpRv(reportItems)
+//                }
+//            }
+//            override fun onCancelled(error: DatabaseError) {
+//            }
+//        })
     }
     private fun countFrequencies(regPool: ArrayList<String>, lessCount: Int) {
-        val hm = HashMap<String, Int>()
+        val hm = HashMap<String, Double>()
 
         for (i in regPool) {
             val j = hm[i]
-            hm[i] = if (j == null) 1 else j + 1
+            hm[i] = (if (j == null) 1.0 else j + 1.0)
         }
         for ((key, value) in hm) {
             analyzeStudPercentage(lessCount,value, key)
         }
 
     }
-    private fun analyzeStudPercentage(count: Int, sum: Int, reg_no: String){
-        val avg = (count/sum) * 100
+    private fun analyzeStudPercentage(count: Int, sum: Double, reg_no: String){
+        val avg: Double = (sum/count) * 100
         reportItems.add(ReportItem(reg_no, avg))
 //        adapter.notifyDataSetChanged()
     }

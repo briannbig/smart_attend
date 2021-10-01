@@ -3,7 +3,7 @@ package app.smartattend.model;
 public class Attendance {
     private String course, reg_No;
 
-    public Attendance(String course, String reg_No) {
+    public Attendance( String reg_No, String course) {
         this.course = course;
         this.reg_No = reg_No;
     }
