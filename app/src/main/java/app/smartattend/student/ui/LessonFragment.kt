@@ -125,6 +125,19 @@ class LessonFragment : Fragment() {
                         startTime = snapshot.child("startTime").value as Long?
                         endTime = snapshot.child("endTime").value as Long?
                     }
+                    val courseRef = FirebaseDB.courseRef.orderByChild("code").equalTo(lesson.courseCode)
+                    courseRef.addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.exists()){
+                                binding.apply {
+                                    tvCourseTitle.text = snapshot.child("title").value.toString()
+                                    tvLecName.text = snapshot.child("lecturer").value.toString()
+                                }
+                            }
+                        }
+                        override fun onCancelled(error: DatabaseError) {}
+
+                    })
                 }
             }
             override fun onCancelled(error: DatabaseError) {}
