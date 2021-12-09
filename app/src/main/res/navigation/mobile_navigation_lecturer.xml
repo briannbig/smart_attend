@@ -50,8 +50,8 @@
     <fragment
         android:id="@+id/courseReportFragment2"
         android:name="app.smartattend.admin.ui.notifications.CourseReportFragment"
-        android:label="fragment_course_report"
-        tools:layout="@layout/fragment_course_report" >
+        android:label="course report"
+        tools:layout="@layout/fragment_course_report">
         <argument
             android:name="courseId"
             app:argType="string" />

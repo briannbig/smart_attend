@@ -53,9 +53,7 @@ class StudentHomeFragment : Fragment() {
             }
             else initiateScan()
         }
-        binding.card2.setOnClickListener {
-//            findNavController().navigate(R.id.action_navigation_student_home_to_coursesFragment2)
-        }
+
         return binding.root
     }
 
