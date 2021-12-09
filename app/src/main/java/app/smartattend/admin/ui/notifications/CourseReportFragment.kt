@@ -22,6 +22,9 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class CourseReportFragment : Fragment() {
@@ -143,7 +146,8 @@ class CourseReportFragment : Fragment() {
     }
     private fun analyzeStudPercentage(count: Int, sum: Double, reg_no: String){
         val avg: Double = (sum/count) * 100
-        reportItems.add(ReportItem(reg_no, avg))
+        val av_ =  "%.${1}f".format(Locale.ENGLISH,avg).toDouble()
+        reportItems.add(ReportItem(reg_no, av_))
 //        adapter.notifyDataSetChanged()
     }
 }
