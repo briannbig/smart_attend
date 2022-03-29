@@ -12,4 +12,15 @@
   <color name="customBlue">@android:color/holo_blue_light</color>
   <color name="customWhite">#f3f3f3</color>
 <!--  <color name="teal_200">#FF03DAC5</color>-->
+
+  <color name="redOrange">#ffffab91</color>
+  <color name="redPink">#fff48fb1</color>
+  <color name="babyBlue">#f1f1f1</color>
+  <color name="violet">#ffcf94da</color>
+  <color name="green">#FF3DDC84</color>
+  <color name="orange">#FFF0A732</color>
+  <color name="darkBlue">#303F9F</color>
+  <color name="blueLightBg">#699FDE</color>
+  <color name="lighterBlue">#FF4444C0</color>
+  <color name="darkRed">#FF951C1F</color>
 </resources>
