@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.smartattend.commons.LessonViewModel
+import app.smartattend.commons.ProgressListener
 import app.smartattend.commons.ProgressManager
 import app.smartattend.databinding.FragmentCreateLessonBinding
 import app.smartattend.firebase.FirebaseDB
@@ -27,6 +28,8 @@ import java.util.*
 class CreateLessonFragment : Fragment() {
     private lateinit var lessonViewModel: LessonViewModel
     private lateinit var binding: FragmentCreateLessonBinding
+    private val progressListener = ProgressListener()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,7 +64,7 @@ class CreateLessonFragment : Fragment() {
                 lessonStartTime = lessonViewModel.startTime.value!!
                 lessonEndTime = lessonViewModel.endTime.value!!
             }
-            ProgressManager.startProgress(requireContext(), lesson.endTime)
+            ProgressListener().onProgressStart(requireContext(), lesson.endTime)
             snack("success")
             findNavController().popBackStack()
         }else

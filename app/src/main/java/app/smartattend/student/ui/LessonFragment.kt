@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.smartattend.R
 import app.smartattend.adapters.AttendeeAdapter
@@ -42,6 +43,7 @@ class LessonFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvAttendees.layoutManager = LinearLayoutManager(requireContext())
+        setUpRv()
     }
 
     override fun onCreateView(
@@ -49,17 +51,23 @@ class LessonFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLessonBinding.inflate(inflater, container, false)
-        lessonViewModel = ViewModelProvider(this.requireActivity()).get(LessonViewModel::class.java)
+        lessonViewModel = ViewModelProvider(this).get(LessonViewModel::class.java)
         btmSheet = binding.root.findViewById(R.id.layout_bottomSheetBehaviorShare)
         ivQRCode = binding.root.findViewById(R.id.ivDisplayQR)
         appPreferences = AppPreferences(requireContext())
         val startTime = appPreferences.lessonStartTime
         val endTime = appPreferences.lessonEndTime
         val code = appPreferences.lessonCourseCode
-        lesson = Lesson(code, startTime, endTime)
-
-        lessonRef = FirebaseDB.getAttendanceRef(lesson.courseCode, lesson.startTime.toString()).child("attendees")
-        fetchLesson()
+        lessonViewModel.lesson.observe(viewLifecycleOwner) {
+            if (it == null) findNavController().navigateUp()
+            lesson = it
+            lessonRef = FirebaseDB.getAttendanceRef(lesson.courseCode, lesson.startTime.toString()).child("attendees")
+            binding.apply {
+                tvCourseCode.text = lesson.courseCode
+                tvLecName.text = CalenderUtil.longToTime(lesson.endTime)
+            }
+            fetchLesson(lessonRef)
+        }
 
         val bottomSheetBehavior = BottomSheetBehavior.from(btmSheet)
         binding.fabShareCode.setOnClickListener {
@@ -84,12 +92,8 @@ class LessonFragment : Fragment() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
             }
         })
-        binding.apply {
-            val appPrefs = AppPreferences(requireContext())
-            tvCourseCode.text = lesson.courseCode
-            tvLecName.text = CalenderUtil.longToTime(lesson.endTime)
-        }
-        setUpRv()
+
+//        setUpRv()
         return binding.root
     }
     private fun setQRImage() {
@@ -105,18 +109,21 @@ class LessonFragment : Fragment() {
 
     }
     private fun setUpRv(){
-        val query = lessonRef
-//        val query = FirebaseDB.lessonRef.orderByChild("course").equalTo(AppPreferences(requireContext()).lessonCourseCode)
-        val options: FirebaseRecyclerOptions<Attendee> = FirebaseRecyclerOptions.Builder<Attendee>()
-            .setQuery(query, Attendee::class.java).build()
-        val adapter = AttendeeAdapter(options)
-        binding.rvAttendees.apply {
+        lessonViewModel.lesson.observe(viewLifecycleOwner){
+            lessonRef = FirebaseDB.getAttendanceRef(it.courseCode, it.startTime.toString()).child("attendees")
+            val query = lessonRef
+//          val query = FirebaseDB.lessonRef.orderByChild("course").equalTo(AppPreferences(requireContext()).lessonCourseCode)
+            val options: FirebaseRecyclerOptions<Attendee> = FirebaseRecyclerOptions.Builder<Attendee>()
+                .setQuery(query, Attendee::class.java).build()
+            val adapter = AttendeeAdapter(options)
+            binding.rvAttendees.apply {
 //            layoutManager = LinearLayoutManager(requireContext())
-            this.adapter = adapter
+                this.adapter = adapter
+            }
+            adapter.startListening()
         }
-        adapter.startListening()
     }
-    fun fetchLesson(){
+    fun fetchLesson(lessonRef: DatabaseReference) {
         lessonRef.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){

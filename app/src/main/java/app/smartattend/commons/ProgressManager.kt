@@ -6,7 +6,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import app.smartattend.commons.alarm.AlarmReceiver
-import app.smartattend.db.repository.LessonRepo
+import app.smartattend.commons.alarm.NotificationUtils
+import app.smartattend.db.AppDb
 import app.smartattend.preferences.AppPreferences
 
 object ProgressManager {
@@ -18,8 +19,8 @@ object ProgressManager {
         AppPreferences(context).inProgress = true
     }
     fun endProgress(context: Context){
-        val lessonRepo = LessonRepo(context.applicationContext as Application?)
-        lessonRepo.delete()
+        val ctx = context.applicationContext as Application
+        AppDb.databaseWriteExecutor.execute { AppDb.getInstance(ctx).appDao().deleteLesson() }
         AppPreferences(context).inProgress = false
     }
     private fun startAlarm(context: Context, endTime: Long) {
@@ -28,4 +29,26 @@ object ProgressManager {
         val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, endTime, pendingIntent)
     }
+}
+
+interface ProgressListenerInterface{
+    fun onProgressStart(context: Context, endTime: Long)
+    fun onProgressEnd(context: Context)
+}
+
+class ProgressListener : ProgressListenerInterface{
+    override fun onProgressStart(context: Context, endTime: Long) {
+        ProgressManager.startProgress(context, endTime)
+        val notificationUtils = NotificationUtils(context)
+        val notification = notificationUtils.getStartProgressNotificationBuilder().build()
+        notificationUtils.getManager().notify(151, notification)
+    }
+
+    override fun onProgressEnd(context: Context) {
+        ProgressManager.endProgress(context.applicationContext)
+        val notificationUtils = NotificationUtils(context)
+        val notification = notificationUtils.getNotificationBuilder().build()
+        notificationUtils.getManager().notify(150, notification)
+    }
+
 }
