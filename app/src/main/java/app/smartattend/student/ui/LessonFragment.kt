@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.smartattend.R
 import app.smartattend.adapters.AttendeeAdapter
-import app.smartattend.commons.CalenderUtil
 import app.smartattend.commons.LessonViewModel
+import app.smartattend.commons.TimeConverter
 import app.smartattend.databinding.FragmentLessonBinding
 import app.smartattend.firebase.FirebaseDB
 import app.smartattend.model.Attendee
@@ -64,7 +64,7 @@ class LessonFragment : Fragment() {
             lessonRef = FirebaseDB.getAttendanceRef(lesson.courseCode, lesson.startTime.toString()).child("attendees")
             binding.apply {
                 tvCourseCode.text = lesson.courseCode
-                tvLecName.text = CalenderUtil.longToTime(lesson.endTime)
+                tvLecName.text = TimeConverter.toDateFormat(lesson.endTime)
             }
             fetchLesson(lessonRef)
         }
