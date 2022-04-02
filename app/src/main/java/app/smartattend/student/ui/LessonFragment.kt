@@ -10,14 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.smartattend.R
 import app.smartattend.adapters.AttendeeAdapter
-import app.smartattend.adapters.CourseAdapter
 import app.smartattend.commons.CalenderUtil
 import app.smartattend.commons.LessonViewModel
-import app.smartattend.commons.ProgressManager
 import app.smartattend.databinding.FragmentLessonBinding
 import app.smartattend.firebase.FirebaseDB
 import app.smartattend.model.Attendee
-import app.smartattend.model.Course
 import app.smartattend.model.Lesson
 import app.smartattend.preferences.AppPreferences
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -42,6 +39,11 @@ class LessonFragment : Fragment() {
     private lateinit var lessonRef: DatabaseReference
     private lateinit var appPreferences: AppPreferences
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.rvAttendees.layoutManager = LinearLayoutManager(requireContext())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,7 +58,7 @@ class LessonFragment : Fragment() {
         val code = appPreferences.lessonCourseCode
         lesson = Lesson(code, startTime, endTime)
 
-        lessonRef = FirebaseDB.getAttendanceRef(lesson.course, lesson.startTime.toString()).child("attendees")
+        lessonRef = FirebaseDB.getAttendanceRef(lesson.courseCode, lesson.startTime.toString()).child("attendees")
         fetchLesson()
 
         val bottomSheetBehavior = BottomSheetBehavior.from(btmSheet)
@@ -84,7 +86,7 @@ class LessonFragment : Fragment() {
         })
         binding.apply {
             val appPrefs = AppPreferences(requireContext())
-            tvCourseCode.text = lesson.course
+            tvCourseCode.text = lesson.courseCode
             tvLecName.text = CalenderUtil.longToTime(lesson.endTime)
         }
         setUpRv()
@@ -109,7 +111,7 @@ class LessonFragment : Fragment() {
             .setQuery(query, Attendee::class.java).build()
         val adapter = AttendeeAdapter(options)
         binding.rvAttendees.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+//            layoutManager = LinearLayoutManager(requireContext())
             this.adapter = adapter
         }
         adapter.startListening()
@@ -119,10 +121,23 @@ class LessonFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     lesson.apply {
-                        course = snapshot.child("course").value.toString()
+                        courseCode = snapshot.child("course").value.toString()
                         startTime = snapshot.child("startTime").value as Long?
                         endTime = snapshot.child("endTime").value as Long?
                     }
+                    val courseRef = FirebaseDB.courseRef.orderByChild("code").equalTo(lesson.courseCode)
+                    courseRef.addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.exists()){
+                                binding.apply {
+                                    tvCourseTitle.text = snapshot.child("title").value.toString()
+                                    tvLecName.text = snapshot.child("lecturer").value.toString()
+                                }
+                            }
+                        }
+                        override fun onCancelled(error: DatabaseError) {}
+
+                    })
                 }
             }
             override fun onCancelled(error: DatabaseError) {}

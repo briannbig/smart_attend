@@ -3,8 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="classes">classes</string>
-    <string name="courses">courses</string>
+    <string name="classes">Classes</string>
+    <string name="courses">subjects</string>
     <string name="manage_classes">Manage Classes</string>
     <string name="manage_courses">manage courses</string>
     <string name="more">more</string>
@@ -39,7 +39,7 @@
     <string name="lessons">Lessons</string>
     <string name="session_explanation">Start new or view a session in progress</string>
     <string name="lesson_explanation">View and manage courses</string>
-    <string name="sist">Sang\'alo Institute Of Science and technology</string>
+    <string name="sist">Masinde Muliro University Of Science and technology</string>
     <string name="lesson_expalnation_students">Mark attendance and share code with classmates</string>
     <string name="log_out_of_the_app">Log out of the app</string>
     <string name="view_and_manage_classes">View and manage Classes</string>
@@ -55,4 +55,7 @@
     <string name="_56">56%</string>
     <string name="reg_no">reg no</string>
     <string name="_0">0</string>
+    <string name="explanation_teaching_courses">My teaching courses</string>
+    <string name="lecturer_panel">Lecturer panel</string>
+    <string name="student_panel">Student panel</string>
 </resources>

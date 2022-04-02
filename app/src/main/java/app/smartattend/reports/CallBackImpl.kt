@@ -5,7 +5,7 @@ import app.smartattend.model.ReportItem
 class CallBackImpl : MyCallBack {
     private var allReg = ArrayList<String>()
     var courseReport = ArrayList<ReportItem>()
-    private var total: Int = 1
+    private var total: Double = 1.0
 
     override fun onResponse(value: String?) {
         if (value != null) {
@@ -30,7 +30,7 @@ class CallBackImpl : MyCallBack {
         }
 
     }
-    private fun analyzeStudPercentage(count: Int, sum: Int, reg_no: String){
+    private fun analyzeStudPercentage(count: Int, sum: Double, reg_no: String){
         val avg = (count/sum) * 100
         courseReport.add(ReportItem(reg_no, avg))
     }
