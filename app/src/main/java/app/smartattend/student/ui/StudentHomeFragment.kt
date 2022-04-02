@@ -40,7 +40,7 @@ class StudentHomeFragment : Fragment() {
         binding = FragmentStudentHomeBinding.inflate(inflater, container, false)
         qrScanIntegrator = IntentIntegrator.forSupportFragment(this).apply {
             setOrientationLocked(true)
-            setPrompt("Scan bar code to sign in a lesson/class")
+            setPrompt("Scan bar code to mark attendance")
             setBeepEnabled(true)
             setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
             setTimeout(10000)

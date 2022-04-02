@@ -27,8 +27,8 @@
     <string name="prompt_password">password</string>
     <string name="welcome">welcome</string>
     <string name="new_attendance">new attendance</string>
-    <string name="in_progress">in progress</string>
-    <string name="lesson_in_progress">Lesson in Progress</string>
+    <string name="in_progress">In progress</string>
+    <string name="lesson_in_progress">Session in Progress</string>
     <string name="me">me</string>
     <string name="create_session">create session</string>
     <string name="select_end_time">select end time</string>
