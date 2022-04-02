@@ -55,4 +55,6 @@
     <string name="_56">56%</string>
     <string name="reg_no">reg no</string>
     <string name="_0">0</string>
+    <string name="explanation_teaching_courses">My teaching courses</string>
+    <string name="lecturer_panel">Lecturer panel</string>
 </resources>
