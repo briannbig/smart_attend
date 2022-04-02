@@ -57,4 +57,5 @@
     <string name="_0">0</string>
     <string name="explanation_teaching_courses">My teaching courses</string>
     <string name="lecturer_panel">Lecturer panel</string>
+    <string name="student_panel">Student panel</string>
 </resources>
