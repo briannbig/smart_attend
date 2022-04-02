@@ -47,9 +47,9 @@
         app:layout_constraintStart_toStartOf="@id/img_logo"
         app:layout_constraintTop_toBottomOf="@id/img_logo" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_label_lecturer"
-        style="@style/TextAppearance.AppCompat.Title"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
