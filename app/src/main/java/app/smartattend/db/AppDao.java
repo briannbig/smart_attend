@@ -19,7 +19,7 @@ public interface AppDao {
     @Insert
     void insert(Lesson lesson);
     @Query("SELECT * FROM lesson")
-    Lesson getLesson();
+    LiveData<Lesson> getLesson();
     @Query("DELETE FROM lesson")
     void deleteLesson();
     @Update

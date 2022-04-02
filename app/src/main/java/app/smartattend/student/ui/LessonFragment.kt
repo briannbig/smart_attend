@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.smartattend.R
 import app.smartattend.adapters.AttendeeAdapter
-import app.smartattend.commons.CalenderUtil
 import app.smartattend.commons.LessonViewModel
+import app.smartattend.commons.TimeConverter
 import app.smartattend.databinding.FragmentLessonBinding
 import app.smartattend.firebase.FirebaseDB
 import app.smartattend.model.Attendee
@@ -87,7 +87,7 @@ class LessonFragment : Fragment() {
         binding.apply {
             val appPrefs = AppPreferences(requireContext())
             tvCourseCode.text = lesson.courseCode
-            tvLecName.text = CalenderUtil.longToTime(lesson.endTime)
+            tvLecName.text = TimeConverter.toDateFormat(lesson.endTime)
         }
         setUpRv()
         return binding.root

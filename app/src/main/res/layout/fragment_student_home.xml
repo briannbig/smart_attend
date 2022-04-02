@@ -24,12 +24,12 @@
         style="@style/TextAppearance.MaterialComponents.Headline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/student_panel"
         app:layout_constraintEnd_toEndOf="@id/textView9"
         app:layout_constraintStart_toStartOf="@id/textView9"
-        app:layout_constraintTop_toTopOf="@id/textView9" />
+        app:layout_constraintTop_toBottomOf="@id/textView9" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -54,18 +54,21 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/titlebackgroundwhite"
+        android:textColor="?attr/colorPrimary"
         android:gravity="center"
-        android:text="@string/app_name"
-        app:layout_constraintEnd_toEndOf="@id/img_logo"
-        app:layout_constraintStart_toStartOf="@id/img_logo"
+        android:text="@string/project_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img_logo" />
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card3"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
         android:focusable="true"
         app:cardCornerRadius="20dp"
@@ -92,14 +95,14 @@
 
             <TextView
                 android:id="@+id/textView_2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/lesson_expalnation_students"
-                app:layout_constraintStart_toStartOf="@id/textView8"
-                app:layout_constraintEnd_toEndOf="@+id/textView8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
@@ -117,11 +120,13 @@
 
     <TextView
         android:id="@+id/textView9"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textStyle="italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        style="@style/TextAppearance.AppCompat"
-        android:text="@string/sist"
+        android:gravity="center"
+        android:text="@string/mmust"
         app:layout_constraintEnd_toEndOf="@+id/tv_app_title"
         app:layout_constraintStart_toStartOf="@+id/tv_app_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_app_title" />

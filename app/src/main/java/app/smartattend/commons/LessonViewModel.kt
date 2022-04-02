@@ -9,16 +9,18 @@ import app.smartattend.model.Lesson
 
 class LessonViewModel(application: Application) : AndroidViewModel(application){
     private val lessonRepo = LessonRepo(application)
-    var lesson = MutableLiveData<Lesson>()
+    var lesson : LiveData<Lesson> = lessonRepo.currentLesson
     var courseCode = MutableLiveData<String>()
     var courseTitle = MutableLiveData<String>()
 
+
+
     fun updateLesson(lesson: Lesson) {
         lessonRepo.insert(lesson)
-        this.lesson.value = lessonRepo.currentLesson
+        this.lesson = lessonRepo.currentLesson
     }
     fun getLesson() : Lesson? {
-        return lessonRepo.currentLesson
+        return lessonRepo.currentLesson.value
     }
     fun clearLesson(){
         lessonRepo.delete()

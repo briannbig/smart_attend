@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.smartattend.R
 import app.smartattend.commons.LessonViewModel
+import app.smartattend.commons.ProgressListener
 import app.smartattend.commons.ProgressManager
 import app.smartattend.databinding.FragmentStudentHomeBinding
 import app.smartattend.firebase.FirebaseDB
@@ -80,9 +81,10 @@ class StudentHomeFragment : Fragment() {
                     if (belongsToClass(lesson.courseCode)){
                         val attendanceRef =
                             FirebaseDB.getAttendanceRef(lesson.courseCode, lesson.startTime.toString()).child("attendees")
+                        val cal =  Calendar.getInstance().timeInMillis
                         attendanceRef.apply {
                             child(AppPreferences(requireContext()).userReg!!).child("reg_No").setValue(AppPreferences(requireContext()).userReg)
-                            child(AppPreferences(requireContext()).userReg!!).child("time_In").setValue(Calendar.getInstance().timeInMillis)
+                            child(AppPreferences(requireContext()).userReg!!).child("time_In").setValue(cal)
                         }
 
                         val attendeesRef = FirebaseDB.attendanceRef
@@ -103,7 +105,7 @@ class StudentHomeFragment : Fragment() {
                             lessonStartTime = lesson.startTime
                             lessonEndTime = lesson.endTime
                         }
-                        ProgressManager.startProgress(requireContext(), lesson.endTime)
+                        ProgressListener().onProgressStart(requireContext(), lesson.endTime)
                         snack("success")
                     }
                     else

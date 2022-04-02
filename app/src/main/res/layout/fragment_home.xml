@@ -30,8 +30,8 @@
 
     <ImageView
         android:id="@+id/img_logo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,29 +44,32 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/titlebackgroundwhite"
+        android:textColor="?attr/colorPrimary"
         android:gravity="center"
-        android:text="@string/app_name"
-        app:layout_constraintEnd_toEndOf="@id/img_logo"
-        app:layout_constraintStart_toStartOf="@id/img_logo"
+        android:text="@string/project_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img_logo" />
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_label_admin"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Admin home"
         app:layout_constraintEnd_toEndOf="@id/textView9"
         app:layout_constraintStart_toStartOf="@id/textView9"
-        app:layout_constraintTop_toTopOf="@id/textView9" />
+        app:layout_constraintTop_toBottomOf="@id/textView9" />
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card3"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="125dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -102,7 +105,7 @@
                 android:id="@+id/textView_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/view_and_manage_classes"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/textView8"
@@ -110,10 +113,10 @@
 
             <TextView
                 android:id="@+id/textView8"
-                style="@style/TextAppearance.AppCompat.Headline"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/classes"
                 app:layout_constraintEnd_toEndOf="@id/img_4"
                 app:layout_constraintStart_toStartOf="@+id/img_4"
@@ -124,7 +127,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card4"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="125dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
@@ -156,20 +159,21 @@
                 android:id="@+id/textView_8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/view_and_manage_lecturers"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/textView10"
                 app:layout_constraintStart_toStartOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                />
 
             <TextView
                 android:id="@+id/textView10"
-                style="@style/TextAppearance.AppCompat.Headline"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/lecturers"
                 app:layout_constraintEnd_toEndOf="@id/img_5"
                 app:layout_constraintStart_toStartOf="@+id/img_5"
@@ -179,11 +183,13 @@
 
     <TextView
         android:id="@+id/textView9"
-        style="@style/TextAppearance.AppCompat"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textStyle="italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/sist"
+        android:gravity="center"
+        android:text="@string/mmust"
         app:layout_constraintEnd_toEndOf="@+id/tv_app_title"
         app:layout_constraintStart_toStartOf="@+id/tv_app_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_app_title" />

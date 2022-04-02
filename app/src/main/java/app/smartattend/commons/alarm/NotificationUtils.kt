@@ -57,4 +57,18 @@ class  NotificationUtils(base: Context) : ContextWrapper(base) {
             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
             .setAutoCancel(true)
     }
+    fun getStartProgressNotificationBuilder(): NotificationCompat.Builder {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+        return NotificationCompat.Builder(applicationContext, MYCHANNEL_ID)
+            .setContentTitle(AppPreferences(baseContext).lessonCourseCode.toString())
+            .setContentText("You joined the session")
+            .setSmallIcon(R.drawable.ic_app_logo)
+            .setColor(getColor(R.color.secondaryDarkColor))
+            .setContentIntent(pendingIntent)
+            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+            .setAutoCancel(true)
+    }
 }
