@@ -1,16 +1,16 @@
 package app.smartattend.commons
 
 import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
-object CalenderUtil {
-    private val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-    private val tf = DateFormat.getTimeInstance(DateFormat.MEDIUM, Locale.getDefault())
-    val currentTime : Long = Calendar.getInstance().timeInMillis
-    val isToday: (Long) -> Boolean = fun (timeStamp: Long): Boolean {
-        return (df.format(currentTime) == df.format(timeStamp))
-    }
-    fun longToTime(longMillis: Long): String{
-        return tf.format(longMillis)
+//  this utility class facilitates changing time stored in our database in Long primitive type
+// to more human understandable format.
+// formats the given Long to dd/MM/yyyy HH:mm
+object TimeUtil {
+    fun toDateFormat(timeInMillis: Long): String {
+        val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US)
+        val date = Date(timeInMillis)
+        return dateFormat.format(date)
     }
 }
