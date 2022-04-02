@@ -36,7 +36,7 @@
     <string name="log_out">log out</string>
     <string name="time_not_selected">time not set</string>
     <string name="courses_caps">Courses</string>
-    <string name="lessons">Lessons</string>
+    <string name="lessons">Session</string>
     <string name="session_explanation">Start new or view a session in progress</string>
     <string name="lesson_explanation">View and manage courses</string>
     <string name="mmust">Masinde Muliro University Of Science and technology</string>
